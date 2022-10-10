@@ -12,4 +12,4 @@ If you would like to contribute to the plugin (e.g. by improving the documentati
 
 ## Author
 
-This [flutter_data_interface](https://github.com/Iconica-Development/flutter_rbac) for Flutter is developed by [Iconica](https://iconica.nl). You can contact us at <support@iconica.nl>
+This [flutter_rbac](https://github.com/Iconica-Development/flutter_rbac) for Flutter is developed by [Iconica](https://iconica.nl). You can contact us at <support@iconica.nl>
