@@ -26,12 +26,10 @@ class Rbac {
             .once())
         .snapshot;
 
-    List newRoles;
+    List newRoles = [];
     var value = res.value;
     if (value is List) {
-      newRoles = value;
-    } else {
-      newRoles = [];
+      newRoles.addAll(value);
     }
 
     if (!newRoles.contains(role)) {
