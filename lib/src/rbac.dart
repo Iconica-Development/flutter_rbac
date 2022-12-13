@@ -85,40 +85,41 @@ class Rbac {
   }
 
   Future<List<String>> getRoles(String? userId, String? groupId) async {
-    DatabaseReference ref = database.ref().child('groups');
+    var ref = database.ref().child('groups');
+    groupId ??= '_AppShell';
+    List<String> roles = [];
 
     if (userId == null) {
-      var res = await ref.child(groupId ?? "_AppShell").get();
+      var snapshot = await ref.child(groupId).get();
 
-      var value = res.value;
-      List<String> result = [];
+      var value = snapshot.value;
+
       if (value is Map && value['users'] is Map) {
         value['users'].forEach((userId, roles) {
           for (String role in roles) {
-            if (!result.contains(role)) {
-              result.add(role);
+            if (!roles.contains(role)) {
+              roles.add(role);
             }
           }
         });
-        setGroupRoles(result);
-        return result;
       }
     } else {
-      var res = (await ref
-              .child(groupId ?? "_AppShell")
-              .child('users')
-              .child(userId)
-              .once())
-          .snapshot;
-      var value = res.value;
-      if (value is List<dynamic>) {
-        List<String> roles = value.cast<String>();
-        setGroupRoles(roles);
-        return roles;
+      var snapshot =
+          await ref.child(groupId).child('users').child(userId).get();
+
+      var items = snapshot.value;
+
+      if (items is List) {
+        for (var item in items) {
+          if (item is String) {
+            roles.add(item);
+          }
+        }
       }
     }
 
-    return [];
+    setGroupRoles(roles);
+    return roles;
   }
 
   Future<void> removeRole(String? role, String userId, String? group) async {
