@@ -1,0 +1,6 @@
+name: flutter_rbac_services
+
+packages:
+  - packages/*
+  - packages/*/*
+  - packages/*/*/*
