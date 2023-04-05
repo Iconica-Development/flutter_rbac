@@ -27,4 +27,19 @@ class FirebaseRbacDatasource implements RbacDataInterface {
       });
     }
   }
+
+  @override
+  Future<void> revokePermission(String userId, String permission) async {
+    var doc = FirebaseFirestore.instanceFor(app: firebaseApp)
+        .collection('flutter_rbac_users')
+        .doc(userId);
+    var snapshot = await doc.get();
+    if (snapshot.exists) {
+      await doc.update({
+        'permissions': FieldValue.arrayRemove([permission]),
+      });
+    } else {
+      print('This permissions does not exsist');
+    }
+  }
 }

@@ -9,4 +9,10 @@ class RbacService {
   Future<void> addPermission(String userId, Permission permission) async {
     await _dataInterface.addUserPermission(userId, permission.representation);
   }
+
+  Future<void> revokePermission(String userId, Permission permission) async {
+    await _dataInterface.revokePermission(userId, permission.representation);
+  }
+
+
 }
