@@ -39,7 +39,22 @@ class FirebaseRbacDatasource implements RbacDataInterface {
         'permissions': FieldValue.arrayRemove([permission]),
       });
     } else {
-      print('This permissions does not exsist');
+      print('This permission does not exsist');
+    }
+  }
+
+  @override
+  Future<void> grantRole(String userId, String roleName) async {
+    var doc = FirebaseFirestore.instanceFor(app: firebaseApp)
+        .collection('flutter_rbac_users')
+        .doc(userId);
+    var snapshot = await doc.get();
+    if (snapshot.exists) {
+      await doc.update({
+        'roles': FieldValue.arrayUnion([roleName]),
+      });
+    } else {
+      print('This user does not exsis');
     }
   }
 }

@@ -14,5 +14,9 @@ class RbacService {
     await _dataInterface.revokePermission(userId, permission.representation);
   }
 
+  Future<void> grantRole(String userId, String roleName) async {
+    await _dataInterface.grantRole(userId, roleName);
+  }
+
 
 }
