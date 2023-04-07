@@ -13,6 +13,10 @@ class RbacService {
   Future<void> revokePermission(String userId, Permission permission) async {
     await _dataInterface.revokePermission(userId, permission.representation);
   }
+  
+  Future<void> getUserPermissions(String userId) async {
+    await _dataInterface.getUserPermissions(userId);
+  }
 
   Future<void> grantRole(String userId, String roleName) async {
     await _dataInterface.grantRole(userId, roleName);

@@ -44,6 +44,16 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   }
 
   @override
+  Future<Map<String, dynamic>?> getUserPermissions(String userId) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('flutter_rbac_users')
+        .doc(userId)
+        .get();
+
+    return querySnapshot.get('permissions');
+  }
+
+  @override
   Future<void> grantRole(String userId, String roleName) async {
     var doc = FirebaseFirestore.instanceFor(app: firebaseApp)
         .collection('flutter_rbac_users')
