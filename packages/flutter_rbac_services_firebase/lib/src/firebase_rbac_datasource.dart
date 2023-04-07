@@ -47,7 +47,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   Future<void> grantRole(String userId, String roleName) async {
     var doc = FirebaseFirestore.instanceFor(app: firebaseApp)
         .collection('flutter_rbac_users')
-        .doc(userId);
+        .doc(userId);   
     var snapshot = await doc.get();
     if (snapshot.exists) {
       await doc.update({
@@ -80,7 +80,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
         .doc(userId)
         .get();
 
-    return querySnapshot.data();
+    return querySnapshot.get('roles');
   }
 
 }
