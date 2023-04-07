@@ -72,5 +72,15 @@ class FirebaseRbacDatasource implements RbacDataInterface {
       print('This role does not exsist');
     }
   }
+  
+  @override
+  Future<Map<String, dynamic>?> getUserRoles(String userId) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('flutter_rbac_users')
+        .doc(userId)
+        .get();
+
+    return querySnapshot.data();
+  }
 
 }

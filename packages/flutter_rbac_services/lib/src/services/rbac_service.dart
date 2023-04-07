@@ -22,5 +22,9 @@ class RbacService {
     await _dataInterface.revokeRole(userId, roleName);
   }
 
+  Future<void> getUserRoles(String userId) async {
+    await _dataInterface.getUserRoles(userId);
+  }
+
 
 }
