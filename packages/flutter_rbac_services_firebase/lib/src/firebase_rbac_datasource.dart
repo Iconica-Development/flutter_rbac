@@ -54,7 +54,23 @@ class FirebaseRbacDatasource implements RbacDataInterface {
         'roles': FieldValue.arrayUnion([roleName]),
       });
     } else {
-      print('This user does not exsis');
+      print('This user does not exsist');
     }
   }
+  
+  @override
+  Future<void> revokeRole(String userId, String roleName) async {
+        var doc = FirebaseFirestore.instanceFor(app: firebaseApp)
+        .collection('flutter_rbac_users')
+        .doc(userId);
+    var snapshot = await doc.get();
+    if (snapshot.exists) {
+      await doc.update({
+        'roles': FieldValue.arrayRemove([roleName]),
+      });
+    } else {
+      print('This role does not exsist');
+    }
+  }
+
 }
