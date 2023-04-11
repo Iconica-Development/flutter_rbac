@@ -30,5 +30,9 @@ class RbacService {
     await _dataInterface.getUserRoles(userId);
   }
 
+  Future<void> hasPermittedRole(String userId, String requiredRole) async {
+    await _dataInterface.hasPermittedRole(userId, requiredRole);
+  }
+
 
 }

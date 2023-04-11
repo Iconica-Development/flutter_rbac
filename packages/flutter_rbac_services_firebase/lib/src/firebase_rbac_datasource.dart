@@ -57,7 +57,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   Future<void> grantRole(String userId, String roleName) async {
     var doc = FirebaseFirestore.instanceFor(app: firebaseApp)
         .collection('flutter_rbac_users')
-        .doc(userId);   
+        .doc(userId);
     var snapshot = await doc.get();
     if (snapshot.exists) {
       await doc.update({
@@ -67,10 +67,10 @@ class FirebaseRbacDatasource implements RbacDataInterface {
       print('This user does not exsist');
     }
   }
-  
+
   @override
   Future<void> revokeRole(String userId, String roleName) async {
-        var doc = FirebaseFirestore.instanceFor(app: firebaseApp)
+    var doc = FirebaseFirestore.instanceFor(app: firebaseApp)
         .collection('flutter_rbac_users')
         .doc(userId);
     var snapshot = await doc.get();
@@ -82,7 +82,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
       print('This role does not exsist');
     }
   }
-  
+
   @override
   Future<Map<String, dynamic>?> getUserRoles(String userId) async {
     final querySnapshot = await FirebaseFirestore.instance
@@ -93,4 +93,25 @@ class FirebaseRbacDatasource implements RbacDataInterface {
     return querySnapshot.get('roles');
   }
 
+  @override
+  Future<bool> hasPermittedRole(String userId, String requiredRole) async {
+    bool hasPermittdRole = false;
+    FirebaseFirestore.instance
+        .collection('flutter_rbac_users')
+        .doc(userId)
+        .get()
+        .then((docSnapshot) {
+      List<dynamic> arrayValues = docSnapshot.data()!['roles'];
+
+      arrayValues.forEach((value) {
+        if (value == requiredRole) {
+          hasPermittdRole = true;
+        } else {
+          hasPermittdRole = false;
+        }
+        print(value);
+      });
+    });
+    return hasPermittdRole;
+  }
 }
