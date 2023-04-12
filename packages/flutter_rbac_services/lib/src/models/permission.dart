@@ -16,6 +16,8 @@ class Permission {
     return _root;
   }
 
+
+
   Permission child(String value) {
     return Permission._(root: value, parent: this);
   }
@@ -35,6 +37,11 @@ class Permission {
   static Permission fromPermissable<T extends Permissable>(T resource) {
     return Permission.root(resource.resourceName).child(resource.resourceId);
   }
+
+  // static Permission _fromRepresentation(String representation) {
+  //   //Make use of converter and split function?
+    
+  // }
 
   bool allows(Permission other) {
     if (other._parent != null && _parent != null) {

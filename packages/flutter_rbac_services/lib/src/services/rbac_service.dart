@@ -13,10 +13,6 @@ class RbacService {
   Future<void> revokePermission(String userId, Permission permission) async {
     await _dataInterface.revokePermission(userId, permission.representation);
   }
-  
-  Future<void> getUserPermissions(String userId) async {
-    await _dataInterface.getUserPermissions(userId);
-  }
 
   Future<void> grantRole(String userId, String roleName) async {
     await _dataInterface.grantRole(userId, roleName);
@@ -26,13 +22,23 @@ class RbacService {
     await _dataInterface.revokeRole(userId, roleName);
   }
 
-  Future<void> getUserRoles(String userId) async {
-    await _dataInterface.getUserRoles(userId);
+  Future<bool> hasRole(String userId, String requiredRole) async {
+    var roles = await _dataInterface.getUserRoles(userId);
+
+    return roles.contains(requiredRole);
   }
 
-  Future<void> hasPermittedRole(String userId, String requiredRole) async {
-    await _dataInterface.hasPermittedRole(userId, requiredRole);
+  Future<bool> hasPermission(String userId, Permission requiredPermission) async {
+    // var permissions = await _dataInterface.getUserPermissions(userId);
+    // var roles = await _dataInterface.getUserRoles(userId);
+
+    // for(role in roles) {
+
+    // }
+
+    // var permissions = 
+
+
+    // return <Permission>[].any((element) => element.allows(requiredPermission));    
   }
-
-
 }

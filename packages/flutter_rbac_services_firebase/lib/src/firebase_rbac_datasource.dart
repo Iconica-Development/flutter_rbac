@@ -44,16 +44,6 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   }
 
   @override
-  Future<Map<String, dynamic>?> getUserPermissions(String userId) async {
-    final querySnapshot = await FirebaseFirestore.instance
-        .collection('flutter_rbac_users')
-        .doc(userId)
-        .get();
-
-    return querySnapshot.get('permissions');
-  }
-
-  @override
   Future<void> grantRole(String userId, String roleName) async {
     var doc = FirebaseFirestore.instanceFor(app: firebaseApp)
         .collection('flutter_rbac_users')
@@ -84,34 +74,22 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   }
 
   @override
-  Future<Map<String, dynamic>?> getUserRoles(String userId) async {
-    final querySnapshot = await FirebaseFirestore.instance
+  Future<List> getUserRoles(String userId) async {
+    var snapshot = await FirebaseFirestore.instance
         .collection('flutter_rbac_users')
         .doc(userId)
         .get();
-
-    return querySnapshot.get('roles');
+    List<dynamic> listOfRoles = snapshot.data()!['roles'];
+    return listOfRoles;
   }
 
   @override
-  Future<bool> hasPermittedRole(String userId, String requiredRole) async {
-    bool hasPermittdRole = false;
-    FirebaseFirestore.instance
+  Future<dynamic> getUserPermissions(String userId) async {
+    var snapshot = await FirebaseFirestore.instance
         .collection('flutter_rbac_users')
         .doc(userId)
-        .get()
-        .then((docSnapshot) {
-      List<dynamic> arrayValues = docSnapshot.data()!['roles'];
-
-      arrayValues.forEach((value) {
-        if (value == requiredRole) {
-          hasPermittdRole = true;
-        } else {
-          hasPermittdRole = false;
-        }
-        print(value);
-      });
-    });
-    return hasPermittdRole;
+        .get();
+    List<dynamic> listOfPermissions = snapshot.data()!['permissions'];
+    return listOfPermissions;
   }
 }
