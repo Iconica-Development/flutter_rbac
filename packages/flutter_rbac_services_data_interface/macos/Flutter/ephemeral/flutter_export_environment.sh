@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/joey/development/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/joey/Documents/projects/iconica_components/flutter_rbac_service/packages/flutter_rbac_services_data_interface"
+export "FLUTTER_ROOT=C:\src\flutter"
+export "FLUTTER_APPLICATION_PATH=c:\Flutter projects\flutter_rbac_service\packages\flutter_rbac_services_data_interface"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.0.1"
