@@ -22,9 +22,12 @@ class RbacService {
     await _dataInterface.revokeRole(userId, role);
   }
 
+  Future<Set<String>> getUserRolePermissions(String userId) async {
+    return await _dataInterface.getUserRolePermissions(userId);
+  }
+
   Future<bool> hasRole(String userId, String requiredRole) async {
     var roles = await _dataInterface.getUserRoles(userId);
-
     return roles.contains(requiredRole);
   }
 
@@ -32,8 +35,10 @@ class RbacService {
     var permissionStrings = await _dataInterface.getUserPermissions(userId);
 
     //Convert Strings to permissions
-    var permissions = permissionStrings.map((p) => PermissionConversion.fromRepresentation(p));
+    var permissions = permissionStrings
+        .map((p) => PermissionConversion.fromRepresentation(p));
 
-    return permissions.any((element) => element.allows(requiredPermission));    
+    var hasPerm = permissions.any((element) => element.allows(requiredPermission));
+    return hasPerm;
   }
 }

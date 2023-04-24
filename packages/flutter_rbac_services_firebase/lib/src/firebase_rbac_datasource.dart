@@ -44,7 +44,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   @override
   Future<void> revokePermission(String userId, String permission) async {
     var userSnapshot = await _userCollection.doc(userId).get();
-    if (!userSnapshot.exists) {
+    if (userSnapshot.exists) {
       _userCollection.doc(userId).update({
         'permissions': FieldValue.arrayRemove([permission]),
       });
@@ -53,13 +53,13 @@ class FirebaseRbacDatasource implements RbacDataInterface {
 
   @override
   Future<void> grantRole(String userId, RoleDataModel role) async {
-    var roleSnapshot = await _roleCollection.doc(role.id).get();
+    var roleSnapshot = await _roleCollection.doc().get();
     if (!roleSnapshot.exists) {
       _roleCollection.doc(role.id).set(role);
     }
 
     var userSnapshot = await _userCollection.doc(userId).get();
-    if (!userSnapshot.exists) {
+    if (userSnapshot.exists) {
       _userCollection.doc(userId).update({
         'roles': FieldValue.arrayUnion([role.id]),
       });
@@ -69,14 +69,14 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   @override
   Future<void> revokeRole(String userId, RoleDataModel role) async {
     var userSnapshot = await _userCollection.doc(userId).get();
-    if (!userSnapshot.exists) {
+    if (userSnapshot.exists) {
       _userCollection.doc(userId).update({
         'roles': FieldValue.arrayRemove([role.id]),
       });
     }
   }
 
-  Future<List<RoleDataModel>> _getRolesByIdList(List<String> roleIds) async {
+  Future<List<RoleDataModel>> _getRolesByIdList(List<dynamic> roleIds) async {
     var roles = await _roleCollection.get();
     return roles.docs
         .map((e) => e.data())
@@ -85,27 +85,38 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   }
 
   @override
-  Future<Set<String>> getUserRoles(String userId) async {
+  Future<Set<dynamic>> getUserRoles(String userId) async {
     var userSnapshot = await _userCollection.doc(userId).get();
     var userDoc = userSnapshot.data()!;
-    List<String> listOfRoles = userDoc.roles;
+    List<dynamic> listOfRoles = userDoc.roles;
     return listOfRoles.toSet();
   }
 
   @override
-  Future<List> getUserRolePermissions(String roleName) async {
-    var userSnapshot = await FirebaseFirestore.instance
-        .collection('flutter_rbac_roles')
-        .doc(roleName)
+  Future<Set<String>> getUserRolePermissions(String userId) async {
+    Set<String> listOfPermissions = {};
+    var snapshot = await _userCollection
+        .doc(userId)
         .get();
-    List<dynamic> listOfUserRolePermissions =
-        userSnapshot.data()!['permissions'];
-    return listOfUserRolePermissions;
+
+    if (!snapshot.exists) {
+      return {};
+    }
+
+    var user = snapshot.data()!;
+    var roles = await _getRolesByIdList(user.roles);
+    for (var role in roles) {
+      listOfPermissions = {
+        ...listOfPermissions,
+        ...role.permissions,
+      };
+    }
+    return listOfPermissions;
   }
 
   @override
-  Future<Set<String>> getUserPermissions(String userId) async {
-    Set<String> listOfPermissions = {};
+  Future<Set<dynamic>> getUserPermissions(String userId) async {
+    Set<dynamic> listOfPermissions = {};
     var snapshot = await _userCollection
         .doc(userId)
         .get();

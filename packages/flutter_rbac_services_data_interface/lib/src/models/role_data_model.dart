@@ -2,7 +2,7 @@
 class RoleDataModel {
   final String? id;
   final String roleName;
-  final List<String> permissions;
+  final List<dynamic> permissions;
   RoleDataModel({
     required this.id,
     required this.roleName,
@@ -20,7 +20,7 @@ class RoleDataModel {
     return RoleDataModel(
       id: id,
       roleName: map['roleName'] as String,
-      permissions: List<String>.from((map['permissions'] as List<String>)),
+      permissions: List<dynamic>.from((map['permissions'] as List<dynamic>)),
     );
   }
 }

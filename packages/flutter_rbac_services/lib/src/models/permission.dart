@@ -37,10 +37,14 @@ class Permission {
   }
 
   static Permission _fromRepresentation(String representation) {
-    //Make use of converter and split function?
     final splitted = representation.split('.');
+    var permission = Permission.root(splitted.first);
+    splitted.removeAt(0);
 
-    return Permission.root(splitted.first);
+    for (var element in splitted) {
+     permission = permission.child(element);
+    }
+    return permission;
   }
 
   bool allows(Permission other) {

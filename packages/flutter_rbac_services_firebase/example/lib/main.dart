@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rbac_services/flutter_rbac_services.dart';
 import 'package:flutter_rbac_services_firebase/flutter_rbac_services_firebase.dart';
+import 'package:flutter_rbac_services_data_interface/flutter_rbac_services_data_interface.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,10 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var service = RbacService(
       FirebaseRbacDatasource(firebaseApp: Firebase.app()),
     );
-    await service.addPermission(
-      'userId',
-      Permission.root('anything').child('$_counter'),
-    );
+    await service.hasPermission('4bENHuYKplqyITx0sUk9', Permission.root('ADMIN').child('TRAINING').child('DELETE'));
   }
 
   @override

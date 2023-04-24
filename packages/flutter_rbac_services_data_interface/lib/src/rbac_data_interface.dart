@@ -7,7 +7,7 @@ abstract class RbacDataInterface {
   Future<void> revokePermission(String userId, String permission);
   Future<void> grantRole(String userId, RoleDataModel role);
   Future<void> revokeRole(String userId, RoleDataModel role);
-  Future<Set<String>> getUserRoles(String userId);
-  Future<List> getUserRolePermissions(String userId);
-  Future<Set<String>> getUserPermissions(String userId);
+  Future<Set<dynamic>> getUserRoles(String userId);
+  Future<Set<String>> getUserRolePermissions(String userId);
+  Future<Set<dynamic>> getUserPermissions(String userId);
 }

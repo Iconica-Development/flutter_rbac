@@ -1,8 +1,8 @@
 
 class UserDataModel {
   final String? id;
-  final List<String> permissions;
-  final List<String> roles;
+  final List<dynamic> permissions;
+  final List<dynamic> roles;
   UserDataModel({
     required this.id,
     required this.permissions,
@@ -19,8 +19,8 @@ class UserDataModel {
   factory UserDataModel.fromMap(String id,Map<String, dynamic> map) {
     return UserDataModel(
       id: id,
-      permissions: List<String>.from((map['permissions'] as List<String>)),
-      roles: List<String>.from((map['roles'] as List<String>)),
+      permissions: List<dynamic>.from((map['permissions'] as List<dynamic>)),
+      roles: List<dynamic>.from((map['roles'] as List<dynamic>)),
     );
   }
 }
