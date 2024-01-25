@@ -1,4 +1,3 @@
-
 class RoleDataModel {
   final String? id;
   final String roleName;
