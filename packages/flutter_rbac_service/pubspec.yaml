@@ -1,0 +1,28 @@
+name: flutter_rbac_service
+description: A new Flutter package project.
+version: 1.0.0
+publish_to: "none"
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_rbac_service_data_interface:
+    git:
+      url: https://github.com/Iconica-Development/flutter_rbac_service
+      path: packages/flutter_rbac_service_data_interface
+      ref: 1.0.0
+  uuid: ^4.3.3    
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_iconica_analysis:
+    git:
+      url: https://github.com/Iconica-Development/flutter_iconica_analysis
+      ref: 6.0.0
+
+flutter:
