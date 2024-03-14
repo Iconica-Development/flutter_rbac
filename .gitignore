@@ -1,3 +1,10 @@
 pubspec_overrides.yaml
 
 .dart_tool
+.idea
+.vscode
+ios
+android
+web
+linux
+macos
