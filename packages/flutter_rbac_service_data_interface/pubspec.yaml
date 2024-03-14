@@ -1,6 +1,6 @@
 name: flutter_rbac_service_data_interface
 description: A new Flutter package project.
-version: 1.0.0
+version: 1.0.1
 publish_to: "none"
 
 environment:

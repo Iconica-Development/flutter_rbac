@@ -1,6 +1,6 @@
 name: flutter_rbac_service_firebase
 description: A new Flutter package project.
-version: 1.0.0
+version: 1.0.1
 publish_to: "none"
 
 environment:
@@ -14,9 +14,9 @@ dependencies:
     sdk: flutter
   flutter_rbac_service_data_interface:
     git:
-      url: https://github.com/Iconica-Development/flutter_rbac_service
+      url: https://github.com/Iconica-Development/flutter_rbac
       path: packages/flutter_rbac_service_data_interface
-      ref: 1.0.0  
+      ref: 1.0.1  
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,6 @@
-# Flutter RBAC Service
+# Flutter RBAC
 
-Flutter RBAC Service is a package that enables to add a RBAC system to an existing project. Currently only a Firebase Firestore datasource is provided, but a custom datasource can be constructed by implementing the `RbacDataInterface` and providing this to the `RbacService`.
+Flutter RBAC is a package that enables to add a RBAC system to an existing project. Currently only a Firebase Firestore datasource is provided, but a custom datasource can be constructed by implementing the `RbacDataInterface` and providing this to the `RbacService`.
 
 ## Setup
 To use this package, add flutter_rbac_service as a dependency in your pubspec.yaml file:
