@@ -2,17 +2,17 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-class SecurableObjectDataModel {
-  const SecurableObjectDataModel({
+class SecurableObjectModel {
+  const SecurableObjectModel({
     required this.id,
     required this.name,
   });
 
-  factory SecurableObjectDataModel.fromMap(
+  factory SecurableObjectModel.fromMap(
     String id,
     Map<String, dynamic> map,
   ) =>
-      SecurableObjectDataModel(
+      SecurableObjectModel(
         id: id,
         name: map['name'] ?? '',
       );
@@ -24,10 +24,10 @@ class SecurableObjectDataModel {
         'name': name,
       };
 
-  SecurableObjectDataModel copyWith({
+  SecurableObjectModel copyWith({
     String? name,
   }) =>
-      SecurableObjectDataModel(
+      SecurableObjectModel(
         id: id,
         name: name ?? this.name,
       );

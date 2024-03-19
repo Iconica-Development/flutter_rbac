@@ -5,32 +5,33 @@
 import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
 
 class LocalRbacDatasource implements RbacDataInterface {
-  final securableObjectMap = <String, SecurableObjectDataModel>{};
-  final roleMap = <String, RoleDataModel>{};
-  final accountMap = <String, AccountDataModel>{};
+  final securableObjectMap = <String, SecurableObjectModel>{};
+  final accountMap = <String, AccountModel>{};
+  final accountGroupMap = <String, AccountGroupModel>{};
   final permissionMap = <String, PermissionModel>{};
+  final permissionGroupMap = <String, PermissionGroupModel>{};
   final roleAssignmentMap = <String, RoleAssignmentModel>{};
 
   ///////////////////////// CRUD Securable Objects /////////////////////////////
   @override
   Future<void> setSecurableObject(
-    SecurableObjectDataModel object,
+    SecurableObjectModel object,
   ) async =>
       securableObjectMap.addAll({
         object.id: object,
       });
 
   @override
-  Future<SecurableObjectDataModel?> getSecurableObjectById(
+  Future<SecurableObjectModel?> getSecurableObjectById(
     String objectId,
   ) async =>
       securableObjectMap[objectId];
 
   @override
-  Future<SecurableObjectDataModel?> getSecurableObjectByName(
+  Future<SecurableObjectModel?> getSecurableObjectByName(
     String objectName,
   ) async {
-    SecurableObjectDataModel? object;
+    SecurableObjectModel? object;
 
     for (var obj in securableObjectMap.values) {
       if (obj.name == objectName) {
@@ -43,71 +44,25 @@ class LocalRbacDatasource implements RbacDataInterface {
   }
 
   @override
-  Future<List<SecurableObjectDataModel>> getAllSecurableObjects() async =>
+  Future<List<SecurableObjectModel>> getAllSecurableObjects() async =>
       securableObjectMap.values.toList();
 
   @override
   Future<void> deleteSecurableObject(String objectId) async =>
       securableObjectMap.remove(objectId);
 
-  /////////////////////////////// CRUD Roles ///////////////////////////////////
-  @override
-  Future<void> setRole(
-    RoleDataModel role,
-  ) async =>
-      roleMap.addAll({role.id: role});
-
-  @override
-  Future<RoleDataModel?> getRoleById(String roleId) async => roleMap[roleId];
-
-  @override
-  Future<RoleDataModel?> getRoleByName(String roleName) async {
-    RoleDataModel? role;
-
-    for (var rl in roleMap.values) {
-      if (rl.name == roleName) {
-        role = rl;
-        break;
-      }
-    }
-
-    return role;
-  }
-
-  @override
-  Future<List<RoleDataModel>> getRolesByPermissionIds(
-    List<String> permissionIds,
-  ) async {
-    var roles = <RoleDataModel>[];
-
-    for (var rl in roleMap.values) {
-      if (rl.permissionIds.containsAll(permissionIds)) {
-        roles.add(rl);
-        break;
-      }
-    }
-
-    return roles;
-  }
-
-  @override
-  Future<List<RoleDataModel>> getAllRoles() async => roleMap.values.toList();
-
-  @override
-  Future<void> deleteRole(String roleId) async => roleMap.remove(roleId);
-
   ///////////////////////////// CRUD Accounts //////////////////////////////////
   @override
-  Future<void> setAccount(AccountDataModel account) async =>
+  Future<void> setAccount(AccountModel account) async =>
       accountMap.addAll({account.id: account});
 
   @override
-  Future<AccountDataModel?> getAccountById(String accountId) async =>
+  Future<AccountModel?> getAccountById(String accountId) async =>
       accountMap[accountId];
 
   @override
-  Future<AccountDataModel?> getAccountByEmail(String accountEmail) async {
-    AccountDataModel? account;
+  Future<AccountModel?> getAccountByEmail(String accountEmail) async {
+    AccountModel? account;
 
     for (var acc in accountMap.values) {
       if (acc.email == accountEmail) {
@@ -120,12 +75,62 @@ class LocalRbacDatasource implements RbacDataInterface {
   }
 
   @override
-  Future<List<AccountDataModel>> getAllAccounts() async =>
+  Future<List<AccountModel>> getAllAccounts() async =>
       accountMap.values.toList();
 
   @override
   Future<void> deleteAccount(String accountId) async {
     accountMap.remove(accountId);
+  }
+
+  ////////////////////////// CRUD Account Groups ///////////////////////////////
+  @override
+  Future<void> setAccountGroup(AccountGroupModel accountGroup) async =>
+      accountGroupMap.addAll({accountGroup.id: accountGroup});
+
+  @override
+  Future<AccountGroupModel?> getAccountGroupById(String accountGroupId) async =>
+      accountGroupMap[accountGroupId];
+
+  @override
+  Future<AccountGroupModel?> getAccountGroupByName(
+    String accountGroupName,
+  ) async {
+    AccountGroupModel? accountGroup;
+
+    for (var ag in accountGroupMap.values) {
+      if (ag.name == accountGroupName) {
+        accountGroup = ag;
+        break;
+      }
+    }
+
+    return accountGroup;
+  }
+
+  @override
+  Future<List<AccountGroupModel>> getAccountGroupsByAccountIds(
+    List<String> accountIds,
+  ) async {
+    var accountGroups = <AccountGroupModel>[];
+
+    for (var ag in accountGroupMap.values) {
+      if (ag.accountIds.containsAll(accountIds)) {
+        accountGroups.add(ag);
+        break;
+      }
+    }
+
+    return accountGroups;
+  }
+
+  @override
+  Future<List<AccountGroupModel>> getAllAccountGroups() async =>
+      accountGroupMap.values.toList();
+
+  @override
+  Future<void> deleteAccountGroup(String accountGroupId) async {
+    accountGroupMap.remove(accountGroupId);
   }
 
   /////////////////////////// CRUD Permissions /////////////////////////////////
@@ -159,6 +164,59 @@ class LocalRbacDatasource implements RbacDataInterface {
   Future<void> deletePermission(String permissionId) async =>
       permissionMap.remove(permissionId);
 
+  ///////////////////////// CRUD Permission Groups /////////////////////////////
+  @override
+  Future<void> setPermissionGroup(
+    PermissionGroupModel permissionGroup,
+  ) async =>
+      permissionGroupMap.addAll({permissionGroup.id: permissionGroup});
+
+  @override
+  Future<PermissionGroupModel?> getPermissionGroupById(
+    String permissionGroupId,
+  ) async =>
+      permissionGroupMap[permissionGroupId];
+
+  @override
+  Future<PermissionGroupModel?> getPermissionGroupByName(
+    String permissionGroupName,
+  ) async {
+    PermissionGroupModel? permissionGroup;
+
+    for (var pg in permissionGroupMap.values) {
+      if (pg.name == permissionGroupName) {
+        permissionGroup = pg;
+        break;
+      }
+    }
+
+    return permissionGroup;
+  }
+
+  @override
+  Future<List<PermissionGroupModel>> getPermissionGroupsByPermissionIds(
+    List<String> permissionIds,
+  ) async {
+    var permissionGroups = <PermissionGroupModel>[];
+
+    for (var pg in permissionGroupMap.values) {
+      if (pg.permissionIds.containsAll(permissionIds)) {
+        permissionGroups.add(pg);
+        break;
+      }
+    }
+
+    return permissionGroups;
+  }
+
+  @override
+  Future<List<PermissionGroupModel>> getAllPermissionGroups() async =>
+      permissionGroupMap.values.toList();
+
+  @override
+  Future<void> deletePermissionGroup(String permissionGroupId) async =>
+      permissionGroupMap.remove(permissionGroupId);
+
   /////////////////////////// CRUD Assignments /////////////////////////////////
   @override
   Future<void> setRoleAssignment(
@@ -176,8 +234,9 @@ class LocalRbacDatasource implements RbacDataInterface {
   Future<List<RoleAssignmentModel>> getRoleAssignmentsByReference({
     String? objectId,
     String? accountId,
-    String? roleId,
+    String? accountGroupId,
     String? permissionId,
+    String? permissionGroupId,
   }) async {
     var result = <String, RoleAssignmentModel>{};
     result.addAll(roleAssignmentMap);
@@ -190,12 +249,19 @@ class LocalRbacDatasource implements RbacDataInterface {
       result.removeWhere((key, value) => value.accountId != accountId);
     }
 
-    if (roleId != null) {
-      result.removeWhere((key, value) => value.roleId != roleId);
+    if (accountId != null) {
+      result
+          .removeWhere((key, value) => value.accountGroupId != accountGroupId);
     }
 
     if (permissionId != null) {
       result.removeWhere((key, value) => value.permissionId != permissionId);
+    }
+
+    if (permissionGroupId != null) {
+      result.removeWhere(
+        (key, value) => value.permissionGroupId != permissionGroupId,
+      );
     }
 
     return result.values.toList();

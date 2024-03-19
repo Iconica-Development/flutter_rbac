@@ -42,21 +42,23 @@ From here the following methods can be called from this service to set up and us
 - updateSecurableObject(String objectId, String newName): Updates the name of a securable object.
 - deleteSecurableObject(String objectId): Deletes a securable object and associated role assignments.
 
-### Roles
-- createRole(String name, Set<String> permissionIds): Creates a new role with the specified name and permissions.
-- getRoleById(String roleId): Retrieves a role by its ID.
-- getRoleByName(String roleName): Retrieves a role by its name.
-- getAllRoles(): Retrieves all roles.
-- updateRole(String roleId, String newName): Updates the name of a role.
-- deleteRole(String roleId): Deletes a role and associated role assignments.
-
 ### Accounts
 - createAccount(String id, String email): Creates a new account with the specified ID and email.
 - getAccountById(String accountId): Retrieves an account by its ID.
 - getAccountByEmail(String accountEmail): Retrieves an account by its email.
 - getAllAccounts(): Retrieves all accounts.
 - updateAccount(String accountId, String newEmail): Updates the email of an account.
-- deleteAccount(String accountId): Deletes an account and associated role assignments.
+- deleteAccount(String accountId): Deletes an account and associated data.
+
+### Account Groups
+- createAccountGroup(String id, String name, Set<String> accountIds): Creates an account group.
+- getAccountGroupById(String accountGroupId): Retrieves an account group by its ID.
+- getAccountGroupByName(String accountGroupName): Retrieves an account group by its name.
+- getAllAccountGroups(): Retrieves all account groups.
+- updateAccountGroup(String accountGroupId, {String? newName, Set<String>? accountIds}): Updates an existing account group.
+- deleteAccountGroup(String accountGroupId): Deletes an account group.
+- addAccountsToAccountGroup(String accountgroupId, List<String> accountIds): Adds accounts to an account group.
+- removeAccountsFromAccountsGroup(String accountGroupId, List<String> accountIds): Removes accounts from an account group.
 
 ### Permissions
 - createPermission(String name): Creates a new permission with the specified name.
@@ -66,29 +68,32 @@ From here the following methods can be called from this service to set up and us
 - updatePermission(String permissionId, String newName): Updates the name of a permission.
 - deletePermission(String permissionId): Deletes a permission and associated role assignments.
 
+### Permission Groups
+- createPermissionGroup(String name, Set<String> permissionIds): Creates a new permission group.
+- getPermissionGroupById(String permissionGroupId): Retrieves a permission group by ID.
+- getPermissionGroupByName(String permissionGroupName): Retrieves a permission group by name.
+- getAllPermissionGroups(): Retrieves all permission groups.
+- updatePermissionGroup(String permissionGroupId, {String? newName, Set<String>? newPermissionIds}): Updates a permission group.
+- deletePermissionGroup(String permissionGroupId): Deletes a permission group and all its related assignments.
+
 ### Role Assignments
-- setRoleAssignment(RoleAssignmentModel assignment): Sets a role assignment.
+- createRoleAssignment({String objectId, String? accountId, String? accountGroupId, String? permissionId, String? permissionGroupId}): Creates a role assignment.
 - getRoleAssignmentById(String assignmentId): Retrieves a role assignment by its ID.
-- getRoleAssignmentsByReference({String? objectId, String? accountId, String? roleId, String? permissionId}): Retrieves role assignments based on reference criteria.
-- deleteRoleAssignment(String assignmentId): Deletes a role assignment.
+- getRoleAssignmentsByReference({String? objectId, String? accountId, String? accountGroupId, String? permissionId, String? permissionGroupId}): Retrieves role assignments by reference.
+- getAllRoleAssignments(): Retrieves all role assignments.
+- deleteRoleAssignment(String assignmentId): Deletes a role assignment specified by its ID.
+- grantPermissionsToAccount(String accountId, String objectId, List<String> permissionIds): Grants permissions to an account.
+- revokePermissionsFromAccount(String accountId, String objectId, List<String> permissionIds): Revokes permissions from an account.
+- grantPermissionsToAccountGroup(String accountGroupId, String objectId, List<String> permissionIds): Grants permissions to an account group.
+- revokePermissionFromAccountGroup(String accountGroupId, String objectId, List<String> permissionIds): Revokes permissions from an account group.
+- grantPermissionGroupToAccount(String accountId, String permissionGroupId, {List<String>? objectIds}): Grants a permission group to an account.
+- revokePerissionGroupFromAccount(String accountId, String permissionGroupId, {List<String>? objectIds}): Revokes a permission group from an account.
+- grantPermissionGroupToAccountGroup(String accountGroupId, String permissionGroupId, {List<String>? objectIds}): Grants a permission group to an account group.
+- revokePerissionGroupFromAccountGroup(String accountGroupId, String permissionGroupId, {List<String>? objectIds}): Revokes a permission group from an account group.
 
 ### Other Methods
-- addPermissionsToRole(String roleId, List<String> permissionIds): Adds permissions to a role.
-- removePermissionsFromRole(String roleId, List<String> permissionIds): Removes permissions from a role.
-- grantAccountPermissions(String accountId, String objectId, List<String> permissionIds): Grants - permissions to an account for a specific object.
-- revokeAccountPermissions(String accountId, String objectId, List<String> permissionIds): Revokes permissions from an account for a specific object.
-- grantRole(String accountId, String roleId, {List<String>? objectIds}): Grants a role to an account for multiple objects.
-- revokeRole(String accountId, String roleId, {List<String>? objectIds}): Revokes a role from an account for multiple objects.
-- getAccountRoles(String accountId, String objectId): Retrieves roles assigned to an account for a specific object.
-- getAccountRolePermissions(String accountId, String objectId): Retrieves permissions granted to an account based on assigned roles for a specific object.
-- getAccountDirectPermissions(String accountId, String objectId): Retrieves permissions directly granted to an account for a specific object.
-- getObjectRoles(String objectId): Retrieves roles assigned to a securable object.
-- getObjectRolePermissions(String objectId): Retrieves permissions granted to a securable object based on assigned roles.
-- getObjectDirectPermissions(String objectId): Retrieves permissions directly granted to a securable object.
-- getAccountRolesById(String accountId): Retrieves roles assigned to an account.
-- getAccountRolePermissionsById(String accountId): Retrieves permissions granted to an account based on assigned roles.
-- getAccountDirectPermissionsById(String accountId): Retrieves permissions directly granted to an account.
-- These methods provide comprehensive functionality for managing RBAC within an application, enabling fine-grained control over access to resources based on roles and permissions.  
+- getPermissionGroupsOfAccount(String accountId, String objectId): Retrieves the permission groups associated with an account for a specific object.
+- getPermissionsOfAccount(String accountId, String objectId): Retrieves the permissions associated with an account for a specific object. 
 
 ## Issues
 

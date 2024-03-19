@@ -1,3 +1,8 @@
+## 2.0.0
+
+- Added the account group functionality.
+- Use of proper RBAC terminology.
+
 ## 1.0.1
 
 - Package name change: flutter_rbac_service -> flutter_rbac

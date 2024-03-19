@@ -2,14 +2,14 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-class AccountDataModel {
-  const AccountDataModel({
+class AccountModel {
+  const AccountModel({
     required this.id,
     this.email,
   });
 
-  factory AccountDataModel.fromMap(String id, Map<String, dynamic> map) =>
-      AccountDataModel(
+  factory AccountModel.fromMap(String id, Map<String, dynamic> map) =>
+      AccountModel(
         id: id,
         email: map['email'],
       );
@@ -21,10 +21,10 @@ class AccountDataModel {
         'email': email,
       };
 
-  AccountDataModel copyWith({
+  AccountModel copyWith({
     String? email,
   }) =>
-      AccountDataModel(
+      AccountModel(
         id: id,
         email: email ?? this.email,
       );
