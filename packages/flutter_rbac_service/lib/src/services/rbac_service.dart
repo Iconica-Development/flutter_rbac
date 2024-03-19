@@ -13,7 +13,7 @@ class RbacService {
 
   final _uuid = const Uuid();
 
-  // CRUD Securable Objects ///////////////////////////////////////////////////
+  // Securable Objects /////////////////////////////////////////////////////////
 
   /// Creates a new securable object with the specified [name].
   ///
@@ -22,8 +22,8 @@ class RbacService {
   /// Otherwise, a new securable object is created with a unique ID and the
   /// provided [name].
   ///
-  /// Returns the created or existing [SecurableObjectDataModel].
-  Future<SecurableObjectDataModel> createSecurableObject(String name) async {
+  /// Returns the created or existing [SecurableObjectModel].
+  Future<SecurableObjectModel> createSecurableObject(String name) async {
     var foundObject = await _dataInterface.getSecurableObjectByName(name);
 
     if (foundObject != null) {
@@ -33,7 +33,7 @@ class RbacService {
       return foundObject;
     }
 
-    var object = SecurableObjectDataModel(
+    var object = SecurableObjectModel(
       id: _uuid.v4(),
       name: name,
     );
@@ -44,29 +44,29 @@ class RbacService {
 
   /// Retrieves a securable object by its ID.
   ///
-  /// Returns the [SecurableObjectDataModel] with the specified [objectId],
+  /// Returns the [SecurableObjectModel] with the specified [objectId],
   /// if found.
   /// Returns `null` if no securable object with the specified ID is found.
-  Future<SecurableObjectDataModel?> getSecurableObjectById(
+  Future<SecurableObjectModel?> getSecurableObjectById(
     String objectId,
   ) async =>
       _dataInterface.getSecurableObjectById(objectId);
 
   /// Retrieves a securable object by its name.
   ///
-  /// Returns the [SecurableObjectDataModel] with the specified [name],
+  /// Returns the [SecurableObjectModel] with the specified [name],
   /// if found.
   /// Returns `null` if no securable object with the specified name is found.
-  Future<SecurableObjectDataModel?> getSecurableObjectByName(
+  Future<SecurableObjectModel?> getSecurableObjectByName(
     String name,
   ) async =>
       _dataInterface.getSecurableObjectByName(name);
 
   /// Retrieves all securable objects.
   ///
-  /// Returns a list of [SecurableObjectDataModel] containing all securable
+  /// Returns a list of [SecurableObjectModel] containing all securable
   /// objects.
-  Future<List<SecurableObjectDataModel>> getAllSecurableObjects() async =>
+  Future<List<SecurableObjectModel>> getAllSecurableObjects() async =>
       _dataInterface.getAllSecurableObjects();
 
   /// Updates the name of a securable object specified by its [objectId].
@@ -74,9 +74,9 @@ class RbacService {
   /// Retrieves the securable object with the specified [objectId].
   /// If the object is found, its name is updated to [newName] and saved.
   ///
-  /// Returns the updated [SecurableObjectDataModel] if successful, `null`
+  /// Returns the updated [SecurableObjectModel] if successful, `null`
   /// otherwise.
-  Future<SecurableObjectDataModel?> updateSecurableObject(
+  Future<SecurableObjectModel?> updateSecurableObject(
     String objectId,
     String newName,
   ) async {
@@ -118,116 +118,17 @@ class RbacService {
     return deletedAssignments;
   }
 
-  // CRUD Roles ////////////////////////////////////////////////////////////////
-
-  /// Creates a new role with the specified [name] and [permissionIds].
-  ///
-  /// If a role with the same name already exists, the existing role is
-  /// returned.
-  /// Otherwise, a new role is created with a unique ID, the provided [name],
-  /// and the specified [permissionIds].
-  ///
-  /// Returns the created or existing [RoleDataModel].
-  Future<RoleDataModel> createRole(
-    String name,
-    Set<String> permissionIds,
-  ) async {
-    var foundRole = await _dataInterface.getRoleByName(name);
-
-    if (foundRole != null) {
-      debugPrint('Permission already exists: (ID: ${foundRole.id},'
-          ' Name: ${foundRole.name},'
-          ' PermissionIDs: ${foundRole.permissionIds})');
-
-      return foundRole;
-    }
-
-    var role = RoleDataModel(
-      id: _uuid.v4(),
-      name: name,
-      permissionIds: permissionIds,
-    );
-    await _dataInterface.setRole(role);
-
-    return role;
-  }
-
-  /// Retrieves a role by its ID.
-  ///
-  /// Returns the [RoleDataModel] with the specified [roleId], if found.
-  /// Returns `null` if no role with the specified ID is found.
-  Future<RoleDataModel?> getRoleById(String roleId) async =>
-      _dataInterface.getRoleById(roleId);
-
-  /// Retrieves a role by its name.
-  ///
-  /// Returns the [RoleDataModel] with the specified [roleName], if found.
-  /// Returns `null` if no role with the specified name is found.
-  Future<RoleDataModel?> getRoleByName(String roleName) async =>
-      _dataInterface.getRoleByName(roleName);
-
-  /// Retrieves all roles.
-  ///
-  /// Returns a list of [RoleDataModel] containing all roles.
-  Future<List<RoleDataModel>> getAllRoles() async =>
-      _dataInterface.getAllRoles();
-
-  /// Updates the name of a role specified by its [roleId].
-  ///
-  /// Retrieves the role with the specified [roleId].
-  /// If the role is found, its name is updated to [newName] and saved.
-  ///
-  /// Returns the updated [RoleDataModel] if successful, `null` otherwise.
-  Future<RoleDataModel?> updateRole(String roleId, String newName) async {
-    var role = await _dataInterface.getRoleById(roleId);
-
-    if (role == null) {
-      debugPrint('Role not found: (ID: $roleId');
-      return null;
-    }
-
-    role = role.copyWith(name: newName);
-
-    await _dataInterface.setRole(role);
-
-    return role;
-  }
-
-  /// Deletes a role specified by its [roleId].
-  ///
-  /// This method deletes the role with the specified [roleId].
-  /// Before deletion, it retrieves all role assignments referencing the role
-  /// and deletes them. Then, it deletes the role itself.
-  ///
-  /// Returns a list of IDs of deleted role assignments.
-  Future<List<String>> deleteRole(String roleId) async {
-    var deletedAssignments = <String>[];
-
-    var assignments =
-        await _dataInterface.getRoleAssignmentsByReference(roleId: roleId);
-
-    for (var assignment in assignments) {
-      await _dataInterface.deleteRoleAssignment(assignment.id);
-
-      deletedAssignments.add(assignment.id);
-    }
-
-    await _dataInterface.deleteRole(roleId);
-
-    return deletedAssignments;
-  }
-
-  // CRUD Accounts /////////////////////////////////////////////////////////////
+  // Accounts //////////////////////////////////////////////////////////////////
 
   /// Creates a new account with the specified [id] and [email].
   ///
-  /// Creates a new [AccountDataModel] instance with the provided [id] and
+  /// Creates a new [AccountModel] instance with the provided [id] and
   /// [email].
   /// Saves the newly created account.
   ///
-  /// Returns the created [AccountDataModel].
-  Future<AccountDataModel> createAccount(String id, String email) async {
-    var account = AccountDataModel(id: id, email: email);
+  /// Returns the created [AccountModel].
+  Future<AccountModel> createAccount(String id, String email) async {
+    var account = AccountModel(id: id, email: email);
 
     await _dataInterface.setAccount(account);
 
@@ -236,23 +137,23 @@ class RbacService {
 
   /// Retrieves an account by its ID.
   ///
-  /// Returns the [AccountDataModel] with the specified [accountId], if found.
+  /// Returns the [AccountModel] with the specified [accountId], if found.
   /// Returns `null` if no account with the specified ID is found.
-  Future<AccountDataModel?> getAccountById(String accountId) async =>
+  Future<AccountModel?> getAccountById(String accountId) async =>
       _dataInterface.getAccountById(accountId);
 
   /// Retrieves an account by its email.
   ///
-  /// Returns the [AccountDataModel] with the specified [accountEmail], if
+  /// Returns the [AccountModel] with the specified [accountEmail], if
   /// found.
   /// Returns `null` if no account with the specified email is found.
-  Future<AccountDataModel?> getAccountByEmail(String accountEmail) async =>
+  Future<AccountModel?> getAccountByEmail(String accountEmail) async =>
       _dataInterface.getAccountByEmail(accountEmail);
 
   /// Retrieves all accounts.
   ///
-  /// Returns a list of [AccountDataModel] containing all accounts.
-  Future<List<AccountDataModel>> getAllAccounts() async =>
+  /// Returns a list of [AccountModel] containing all accounts.
+  Future<List<AccountModel>> getAllAccounts() async =>
       _dataInterface.getAllAccounts();
 
   /// Updates the email of an account specified by its [accountId].
@@ -260,8 +161,8 @@ class RbacService {
   /// Retrieves the account with the specified [accountId].
   /// If the account is found, its email is updated to [newEmail] and saved.
   ///
-  /// Returns the updated [AccountDataModel] if successful, `null` otherwise.
-  Future<AccountDataModel?> updateAccount(
+  /// Returns the updated [AccountModel] if successful, `null` otherwise.
+  Future<AccountModel?> updateAccount(
     String accountId,
     String newEmail,
   ) async {
@@ -279,13 +180,15 @@ class RbacService {
     return account;
   }
 
-  /// Deletes an account specified by its [accountId].
+  /// Deletes an account and its associated data.
   ///
-  /// This method deletes the account with the specified [accountId].
-  /// Before deletion, it retrieves all role assignments referencing the account
-  /// and deletes them. Then, it deletes the account itself.
+  /// Deletes the account specified by [accountId] from the data interface,
+  /// along with its associated role assignments and account groups. This method
+  /// retrieves all role assignments and account groups associated with the
+  /// specified account ID, removes them, and then deletes the account itself.
   ///
-  /// Returns a list of IDs of deleted role assignments.
+  /// Returns a [List] of [String] representing the IDs of the deleted role
+  /// assignments.
   Future<List<String>> deleteAccount(String accountId) async {
     var deletedAssignments = <String>[];
 
@@ -299,12 +202,187 @@ class RbacService {
       deletedAssignments.add(assignment.id);
     }
 
+    var accountGroups =
+        await _dataInterface.getAccountGroupsByAccountIds([accountId]);
+
+    for (var ag in accountGroups) {
+      ag.accountIds.remove(accountId);
+
+      await _dataInterface.setAccountGroup(ag);
+    }
+
     await _dataInterface.deleteAccount(accountId);
 
     return deletedAssignments;
   }
 
-  // CRUD Permissions //////////////////////////////////////////////////////////
+  // Account Groups ////////////////////////////////////////////////////////////
+
+  /// Creates an account group.
+  ///
+  /// Creates and stores an account group with the specified [id], [name], and
+  /// [accountIds] in the data interface.
+  ///
+  /// Returns a [Future] that completes with the created [AccountGroupModel].
+  Future<AccountGroupModel> createAccountGroup(
+    String id,
+    String name,
+    Set<String> accountIds,
+  ) async {
+    var group = AccountGroupModel(id: id, name: name, accountIds: accountIds);
+
+    await _dataInterface.setAccountGroup(group);
+
+    return group;
+  }
+
+  /// Retrieves an account group by its ID.
+  ///
+  /// Retrieves and returns the account group with the specified
+  /// [accountGroupId] from the data interface.
+  ///
+  /// Returns a [Future] that completes with the retrieved [AccountGroupModel],
+  /// or `null` if no group is found.
+  Future<AccountGroupModel?> getAccountGroupById(String accountGroupId) async =>
+      _dataInterface.getAccountGroupById(accountGroupId);
+
+  /// Retrieves an account group by its name.
+  ///
+  /// Retrieves and returns the account group with the specified
+  /// [accountGroupName] from the data interface.
+  ///
+  /// Returns a [Future] that completes with the retrieved [AccountGroupModel],
+  /// or `null` if no group is found.
+  Future<AccountGroupModel?> getAccountGroupByName(
+    String accountGroupName,
+  ) async =>
+      _dataInterface.getAccountGroupByName(accountGroupName);
+
+  /// Retrieves all account groups.
+  ///
+  /// Retrieves and returns a list of all account groups stored in the data
+  /// interface.
+  ///
+  /// Returns a [Future] that completes with a list of [AccountGroupModel].
+  Future<List<AccountGroupModel>> getAllAccountGroups() async =>
+      _dataInterface.getAllAccountGroups();
+
+  /// Updates an existing account group.
+  ///
+  /// Updates the account group specified by [accountGroupId] with the provided
+  /// [newName] and/or [accountIds]. At least one of [newName] or [accountIds]
+  /// must be provided.
+  ///
+  /// If both [newName] and [accountIds] are `null`, the function returns `null`
+  /// .
+  ///
+  /// Returns a [Future] that completes with the updated [AccountGroupModel],
+  /// or `null`
+  /// if the account group is not found or if both [newName] and [accountIds]
+  /// are `null`.
+  Future<AccountGroupModel?> updateAccountGroup(
+    String accountGroupId, {
+    String? newName,
+    Set<String>? accountIds,
+  }) async {
+    if (newName == null && accountIds == null) {
+      debugPrint(
+          'Make sure to either update with a new name or new account ids: '
+          '(ID: $accountGroupId');
+      return null;
+    }
+
+    var group = await _dataInterface.getAccountGroupById(accountGroupId);
+
+    if (group == null) {
+      debugPrint('Account group not found: (ID: $accountGroupId');
+      return null;
+    }
+
+    group = group.copyWith(name: newName, accountIds: accountIds);
+
+    await _dataInterface.setAccountGroup(group);
+
+    return group;
+  }
+
+  /// Deletes an account group.
+  ///
+  /// Deletes the account group specified by [accountGroupId]. This operation
+  /// also deletes any associated role assignments related to the account group.
+  ///
+  /// Returns a [Future] that completes with a list of IDs of the deleted role
+  /// assignments.
+  Future<List<String>> deleteAccountGroup(String accountGroupId) async {
+    var deletedAssignments = <String>[];
+
+    var assignments = await _dataInterface.getRoleAssignmentsByReference(
+      accountGroupId: accountGroupId,
+    );
+
+    for (var assignment in assignments) {
+      await _dataInterface.deleteRoleAssignment(assignment.id);
+
+      deletedAssignments.add(assignment.id);
+    }
+
+    await _dataInterface.deleteAccountGroup(accountGroupId);
+
+    return deletedAssignments;
+  }
+
+  /// Adds accounts to an account group.
+  ///
+  /// Adds the accounts specified by [accountIds] to the account group specified
+  /// by [accountgroupId]. If the account group doesn't exist, returns null.
+  ///
+  /// Returns a [Future] that completes with the updated [AccountGroupModel]
+  /// after adding the accounts, or null if the account group was not found.
+  Future<AccountGroupModel?> addAccountsToAccountGroup(
+    String accountgroupId,
+    List<String> accountIds,
+  ) async {
+    var group = await _dataInterface.getAccountGroupById(accountgroupId);
+
+    if (group == null) {
+      debugPrint('Account group not found: (ID: $accountgroupId');
+      return null;
+    }
+
+    group.accountIds.addAll(accountIds);
+
+    await _dataInterface.setAccountGroup(group);
+
+    return group;
+  }
+
+  /// Removes accounts from an account group.
+  ///
+  /// Removes the accounts specified by [accountIds] from the account group
+  /// specified by [accountGroupId]. If the account group doesn't exist, returns
+  /// null.
+  ///
+  /// Returns a [Future] that completes with the updated [AccountGroupModel]
+  /// after removing the accounts, or null if the account group was not found.
+  Future<AccountGroupModel?> removeAccountsFromAccountsGroup(
+    String accountGroupId,
+    List<String> accountIds,
+  ) async {
+    var group = await _dataInterface.getAccountGroupById(accountGroupId);
+
+    if (group == null) {
+      debugPrint('Account group not found: (ID: $accountGroupId');
+      return null;
+    }
+
+    group.accountIds.removeAll(accountIds);
+
+    await _dataInterface.setAccountGroup(group);
+
+    return group;
+  }
+
+  // Permissions ///////////////////////////////////////////////////////////////
 
   /// Creates a new permission with the specified [name].
   ///
@@ -397,12 +475,14 @@ class RbacService {
       deletedAssignments.add(assignment.id);
     }
 
-    var roles = await _dataInterface.getRolesByPermissionIds([permissionId]);
+    var groups = await _dataInterface.getPermissionGroupsByPermissionIds(
+      [permissionId],
+    );
 
-    for (var role in roles) {
-      role.permissionIds.remove(permissionId);
+    for (var group in groups) {
+      group.permissionIds.remove(permissionId);
 
-      await _dataInterface.setRole(role);
+      await _dataInterface.setPermissionGroup(group);
     }
 
     await _dataInterface.deletePermission(permissionId);
@@ -410,25 +490,222 @@ class RbacService {
     return deletedAssignments;
   }
 
-  // CRUD Role Assignments //////////////////////////////////////////////////////////
+  // Permission Groups /////////////////////////////////////////////////////////
 
-  /// Creates a new role assignment.
+  /// Creates a new permission group.
   ///
-  /// Creates a new [RoleAssignmentModel] with the specified parameters.
-  /// The [objectId] and [accountId] are required. Either [roleId] or
-  /// [permissionId] must be provided, but not both. If both are provided, the
-  /// assignment creation fails.
+  /// Creates a new permission group with the specified [name] and
+  /// [permissionIds].
+  /// If a permission group with the same name already exists, returns the
+  /// existing group.
   ///
-  /// Returns the created [RoleAssignmentModel] if successful, `null` otherwise.
+  /// Returns a [Future] that completes with the created [PermissionGroupModel].
+  Future<PermissionGroupModel> createPermissionGroup(
+    String name,
+    Set<String> permissionIds,
+  ) async {
+    var foundGroup = await _dataInterface.getPermissionGroupByName(name);
+
+    if (foundGroup != null) {
+      debugPrint('Permission group already exists: (ID: ${foundGroup.id},'
+          ' Name: ${foundGroup.name},'
+          ' PermissionIDs: ${foundGroup.permissionIds})');
+
+      return foundGroup;
+    }
+
+    var group = PermissionGroupModel(
+      id: _uuid.v4(),
+      name: name,
+      permissionIds: permissionIds,
+    );
+    await _dataInterface.setPermissionGroup(group);
+
+    return group;
+  }
+
+  /// Retrieves a permission group by ID.
+  ///
+  /// Retrieves the permission group with the specified [permissionGroupId].
+  ///
+  /// Returns a [Future] that completes with the [PermissionGroupModel] if
+  /// found, otherwise returns `null`.
+  Future<PermissionGroupModel?> getPermissionGroupById(
+    String permissionGroupId,
+  ) async =>
+      _dataInterface.getPermissionGroupById(permissionGroupId);
+
+  /// Retrieves a permission group by name.
+  ///
+  /// Retrieves the permission group with the specified [permissionGroupName].
+  ///
+  /// Returns a [Future] that completes with the [PermissionGroupModel] if
+  /// found, otherwise returns `null`.
+  Future<PermissionGroupModel?> getPermissionGroupByName(
+    String permissionGroupName,
+  ) async =>
+      _dataInterface.getPermissionGroupByName(permissionGroupName);
+
+  /// Retrieves all permission groups.
+  ///
+  /// Returns a [Future] that completes with a list of [PermissionGroupModel]s
+  /// representing all permission groups stored in the data interface.
+  Future<List<PermissionGroupModel>> getAllPermissionGroups() async =>
+      _dataInterface.getAllPermissionGroups();
+
+  /// Updates a permission group.
+  ///
+  /// If [newName] and [newPermissionIds] are both `null`, returns `null`.
+  /// If [newName] is `null`, only updates the permission IDs.
+  /// If [newPermissionIds] is `null`, only updates the name.
+  ///
+  /// Returns a [Future] that completes with the updated [PermissionGroupModel].
+  Future<PermissionGroupModel?> updatePermissionGroup(
+    String permissionGroupId, {
+    String? newName,
+    Set<String>? newPermissionIds,
+  }) async {
+    if (newName == null && newPermissionIds == null) {
+      debugPrint(
+          'Make sure to either update with a new name or new permission ids: '
+          '(ID: $permissionGroupId');
+      return null;
+    }
+
+    var group = await _dataInterface.getPermissionGroupById(permissionGroupId);
+
+    if (group == null) {
+      debugPrint('Permission group not found: (ID: $permissionGroupId');
+      return null;
+    }
+
+    group = group.copyWith(name: newName, permissionIds: newPermissionIds);
+
+    await _dataInterface.setPermissionGroup(group);
+
+    return group;
+  }
+
+  /// Deletes a permission group and all its related assignments.
+  ///
+  /// Returns a [Future] that completes with a list of IDs of deleted
+  /// assignments.
+  Future<List<String>> deletePermissionGroup(String permissionGroupId) async {
+    var deletedAssignments = <String>[];
+
+    var assignments = await _dataInterface.getRoleAssignmentsByReference(
+      permissionGroupId: permissionGroupId,
+    );
+
+    for (var assignment in assignments) {
+      await _dataInterface.deleteRoleAssignment(assignment.id);
+
+      deletedAssignments.add(assignment.id);
+    }
+
+    await _dataInterface.deletePermissionGroup(permissionGroupId);
+
+    return deletedAssignments;
+  }
+
+  /// Adds permissions to a permission group.
+  ///
+  /// Retrieves the permission group with the given [permissiongroupId]
+  /// from the data interface. If the group is not found, returns null.
+  ///
+  /// Adds the provided [permissionIds] to the permission group's existing
+  /// permissions.
+  ///
+  /// Persists the updated permission group using the data interface.
+  ///
+  /// Returns a [Future] that completes with the updated permission group if
+  /// successful,
+  /// otherwise null.
+  Future<PermissionGroupModel?> addPermissionsToPermissionGroup(
+    String permissiongroupId,
+    List<String> permissionIds,
+  ) async {
+    var group = await _dataInterface.getPermissionGroupById(permissiongroupId);
+
+    if (group == null) {
+      debugPrint('Permission group not found: (ID: $permissiongroupId');
+      return null;
+    }
+
+    group.permissionIds.addAll(permissionIds);
+
+    await _dataInterface.setPermissionGroup(group);
+
+    return group;
+  }
+
+  /// Removes permissions from a permission group.
+  ///
+  /// Retrieves the permission group with the given [permissionGroupId] from
+  /// the data interface. If the group is not found, returns null.
+  ///
+  /// Removes the provided [permissionIds] from the permission group's existing
+  /// permissions.
+  ///
+  /// Persists the updated permission group using the data interface.
+  ///
+  /// Returns a [Future] that completes with the updated permission group if
+  /// successful, otherwise null.
+  Future<PermissionGroupModel?> removePermissionsFromPermissionGroup(
+    String permissionGroupId,
+    List<String> permissionIds,
+  ) async {
+    var group = await _dataInterface.getPermissionGroupById(permissionGroupId);
+
+    if (group == null) {
+      debugPrint('Permission group not found: (ID: $permissionGroupId');
+      return null;
+    }
+
+    group.permissionIds.removeAll(permissionIds);
+
+    await _dataInterface.setPermissionGroup(group);
+
+    return group;
+  }
+
+  // Role Assignments //////////////////////////////////////////////////////////
+
+  /// Creates a role assignment.
+  ///
+  /// Creates a new role assignment with the specified parameters.
+  ///
+  /// - If both [permissionGroupId] and [permissionId] are provided, returns
+  /// null.
+  /// - If both [accountId] and [accountGroupId] are provided, returns null.
+  ///
+  /// Retrieves the role assignment with the provided parameters from the data
+  /// interface. If a matching assignment is found, returns it.
+  ///
+  /// Otherwise, creates a new role assignment with a unique ID and the provided
+  /// parameters.
+  ///
+  /// Persists the new role assignment using the data interface.
+  ///
+  /// Returns a [Future] that completes with the created role assignment if
+  /// successful, otherwise null.
   Future<RoleAssignmentModel?> createRoleAssignment({
     required String objectId,
-    required String accountId,
-    String? roleId,
+    String? accountId,
+    String? accountGroupId,
     String? permissionId,
+    String? permissionGroupId,
   }) async {
-    if (roleId != null && permissionId != null) {
+    if (permissionGroupId != null && permissionId != null) {
       debugPrint('A role assignment should only contain either a '
           'role or permission, not both!');
+
+      return null;
+    }
+
+    if (accountId != null && accountGroupId != null) {
+      debugPrint('A role assignment should only contain either a '
+          'account or account group, not both!');
 
       return null;
     }
@@ -436,13 +713,14 @@ class RbacService {
     var foundAssignment = (await _dataInterface.getRoleAssignmentsByReference(
       objectId: objectId,
       accountId: accountId,
-      roleId: roleId,
+      accountGroupId: accountGroupId,
       permissionId: permissionId,
+      permissionGroupId: permissionGroupId,
     ))
         .firstOrNull;
 
     if (foundAssignment != null) {
-      debugPrint('Permission already exists: (ID: ${foundAssignment.id}');
+      debugPrint('Role assignment already exists: (ID: ${foundAssignment.id}');
 
       return foundAssignment;
     }
@@ -451,8 +729,9 @@ class RbacService {
       id: _uuid.v4(),
       objectId: objectId,
       accountId: accountId,
-      roleId: roleId,
+      accountGroupId: accountGroupId,
       permissionId: permissionId,
+      permissionGroupId: permissionGroupId,
     );
     await _dataInterface.setRoleAssignment(assignment);
 
@@ -469,26 +748,45 @@ class RbacService {
   ) async =>
       _dataInterface.getRoleAssignmentById(assignmentId);
 
-  /// Retrieves role assignments based on the provided reference parameters.
+  /// Retrieves role assignments by reference.
   ///
-  /// If any of the reference parameters are provided, this method retrieves
-  /// role assignments matching those parameters from the data interface. If no
-  /// reference parameters are provided, it retrieves all role assignments.
+  /// Retrieves role assignments based on the provided parameters.
   ///
-  /// Returns a list of [RoleAssignmentModel] that match the provided reference
-  /// parameters.
+  /// The parameters specify filters to match against the properties of the role
+  /// assignments:
+  /// - [objectId]: Object ID to filter role assignments by.
+  /// - [accountId]: Account ID to filter role assignments by.
+  /// - [accountGroupId]: Account group ID to filter role assignments by.
+  /// - [permissionId]: Permission ID to filter role assignments by.
+  /// - [permissionGroupId]: Permission group ID to filter role assignments by.
+  ///
+  /// Returns a [Future] that completes with a list of role assignments that
+  /// match the provided filters.
   Future<List<RoleAssignmentModel>> getRoleAssignmentsByReference({
     String? objectId,
     String? accountId,
-    String? roleId,
+    String? accountGroupId,
     String? permissionId,
+    String? permissionGroupId,
   }) async =>
       _dataInterface.getRoleAssignmentsByReference(
         objectId: objectId,
         accountId: accountId,
-        roleId: roleId,
+        accountGroupId: accountGroupId,
         permissionId: permissionId,
+        permissionGroupId: permissionGroupId,
       );
+
+  /// Retrieves all role assignments.
+  ///
+  /// Retrieves all role assignments from the data interface using the
+  /// [getRoleAssignmentsByReference] method without specifying any criteria.
+  /// This method retrieves and returns a list of all role assignment models
+  /// stored in the data interface.
+  ///
+  /// Returns a [List] of [RoleAssignmentModel].
+  Future<List<RoleAssignmentModel>> getAllRoleAssignments() async =>
+      _dataInterface.getRoleAssignmentsByReference();
 
   /// Deletes a role assignment specified by its ID.
   ///
@@ -498,70 +796,18 @@ class RbacService {
   Future<void> deleteRoleAssignment(String assignmentId) async =>
       _dataInterface.deleteRoleAssignment(assignmentId);
 
-  // Other Methods /////////////////////////////////////////////////////////////
-
-  /// Adds permissions to a role.
+  /// Grants permissions to an account.
   ///
-  /// Retrieves the role specified by [roleId]. If the role is found,
-  /// the provided [permissionIds] are added to its permission list.
-  /// The updated role is then saved.
+  /// Grants the specified [permissionIds] to the account identified by
+  /// [accountId] for the object identified by [objectId].
   ///
-  /// Returns the updated [RoleDataModel] if successful, `null` otherwise.
-  Future<RoleDataModel?> addPermissionsToRole(
-    String roleId,
-    List<String> permissionIds,
-  ) async {
-    var role = await _dataInterface.getRoleById(roleId);
-
-    if (role == null) {
-      debugPrint('Role not found: (ID: $roleId');
-      return null;
-    }
-
-    role.permissionIds.addAll(permissionIds);
-
-    await _dataInterface.setRole(role);
-
-    return role;
-  }
-
-  /// Removes permissions from a role.
+  /// If a role assignment with the same object ID, account ID, and permission
+  /// ID already exists, it won't be duplicated.
   ///
-  /// Retrieves the role specified by [roleId]. If the role is found,
-  /// the provided [permissionIds] are removed from its permission list.
-  /// The updated role is then saved.
-  ///
-  /// Returns the updated [RoleDataModel] if successful, `null` otherwise.
-  Future<RoleDataModel?> removePermissionsFromRole(
-    String roleId,
-    List<String> permissionIds,
-  ) async {
-    var role = await _dataInterface.getRoleById(roleId);
-
-    if (role == null) {
-      debugPrint('Role not found: (ID: $roleId');
-      return null;
-    }
-
-    role.permissionIds.removeAll(permissionIds);
-
-    await _dataInterface.setRole(role);
-
-    return role;
-  }
-
-  /// Grants permissions to an account for a specific object.
-  ///
-  /// Grants permissions specified by [permissionIds] to the account with ID
-  /// [accountId] for the object with ID [objectId]. For each permission ID
-  /// provided, this method checks if there is already an existing role
-  /// assignment for the specified object, account, and permission combination.
-  /// If no such assignment exists, a new assignment is created with a unique
-  /// ID and saved to the data interface.
-  ///
-  /// Returns a list of [RoleAssignmentModel] representing the granted
-  /// permissions.
-  Future<List<RoleAssignmentModel>> grantAccountPermissions(
+  /// Returns a [Future] that completes with a list of role assignments
+  /// representing the permissions granted to the account for the specified
+  /// object.
+  Future<List<RoleAssignmentModel>> grantPermissionsToAccount(
     String accountId,
     String objectId,
     List<String> permissionIds,
@@ -600,16 +846,22 @@ class RbacService {
     return assignments;
   }
 
-  /// Revokes permissions from an account for a specific object.
+  /// Revokes permissions from an account.
   ///
-  /// Revokes permissions specified by [permissionIds] from the account with ID
-  /// [accountId] for the object with ID [objectId]. For each permission ID
-  /// provided, this method retrieves all existing role assignments with the
-  /// specified object, account, and permission combination, and deletes them
-  /// from the data interface.
+  /// Revokes the specified [permissionIds] from the account identified by
+  /// [accountId] for the object identified by [objectId].
   ///
-  /// Returns `void`.
-  Future<void> revokeAccountPermissions(
+  /// Deletes role assignments corresponding to the specified permissions and
+  /// account-object combination.
+  ///
+  /// Parameters:
+  /// - [accountId]: The ID of the account from which permissions are revoked.
+  /// - [objectId]: The ID of the object for which permissions are revoked.
+  /// - [permissionIds]: The IDs of the permissions to revoke.
+  ///
+  /// Returns a [Future] that completes when the permissions are successfully
+  /// revoked.
+  Future<void> revokePermissionsFromAccount(
     String accountId,
     String objectId,
     List<String> permissionIds,
@@ -627,20 +879,114 @@ class RbacService {
     }
   }
 
-  /// Grants a role to an account for multiple objects.
+  /// Grants permissions to an account group.
   ///
-  /// Grants the role specified by [roleId] to the account with ID [accountId]
-  /// for multiple objects specified by [objectIds]. If [objectIds] is `null`,
-  /// grants the role to the account for all securable objects available.
-  /// For each object ID provided, this method checks if there is already an
-  /// existing role assignment for the specified object, account, and role
-  /// combination. If no such assignment exists, a new assignment is created
-  /// with a unique ID and saved to the data interface.
+  /// Grants the specified [permissionIds] to the account group identified by
+  /// [accountGroupId] for the object identified by [objectId].
   ///
-  /// Returns a list of [RoleAssignmentModel] representing the granted roles.
-  Future<List<RoleAssignmentModel>> grantRole(
+  /// Creates role assignments corresponding to the specified permissions and
+  /// account group-object combination.
+  ///
+  /// Parameters:
+  /// - [accountGroupId]: The ID of the account group to which permissions are
+  /// granted.
+  /// - [objectId]: The ID of the object for which permissions are granted.
+  /// - [permissionIds]: The IDs of the permissions to grant.
+  ///
+  /// Returns a [Future] containing a list of [RoleAssignmentModel]s
+  /// representing the newly created assignments.
+  Future<List<RoleAssignmentModel>> grantPermissionsToAccountGroup(
+    String accountGroupId,
+    String objectId,
+    List<String> permissionIds,
+  ) async {
+    var assignments = <RoleAssignmentModel>[];
+
+    for (var pId in permissionIds) {
+      var duplicateAssignments =
+          await _dataInterface.getRoleAssignmentsByReference(
+        objectId: objectId,
+        accountGroupId: accountGroupId,
+        permissionId: pId,
+      );
+
+      if (duplicateAssignments.isEmpty) {
+        var id = _uuid.v4();
+
+        var assignment = RoleAssignmentModel(
+          id: id,
+          objectId: objectId,
+          accountGroupId: accountGroupId,
+          permissionId: pId,
+        );
+
+        await _dataInterface.setRoleAssignment(assignment);
+
+        assignments.add(assignment);
+      } else {
+        debugPrint(
+          'Duplicate assignment: (ObjectID: $objectId, '
+          'AccountGroupID: $accountGroupId, PermissionID: $pId)',
+        );
+      }
+    }
+
+    return assignments;
+  }
+
+  /// Revokes permissions from an account group.
+  ///
+  /// Revokes the specified [permissionIds] from the account group identified by
+  /// [accountGroupId] for the object identified by [objectId].
+  ///
+  /// Removes role assignments corresponding to the specified permissions and
+  /// account group-object combination.
+  ///
+  /// Parameters:
+  /// - [accountGroupId]: The ID of the account group from which permissions are
+  /// revoked.
+  /// - [objectId]: The ID of the object for which permissions are revoked.
+  /// - [permissionIds]: The IDs of the permissions to revoke.
+  ///
+  /// Returns a [Future] that completes when the revocation process is finished.
+  Future<void> revokePermissionFromAccountGroup(
+    String accountGroupId,
+    String objectId,
+    List<String> permissionIds,
+  ) async {
+    for (var pId in permissionIds) {
+      var assignments = await _dataInterface.getRoleAssignmentsByReference(
+        accountGroupId: accountGroupId,
+        objectId: objectId,
+        permissionId: pId,
+      );
+
+      for (var assignment in assignments) {
+        await _dataInterface.deleteRoleAssignment(assignment.id);
+      }
+    }
+  }
+
+  /// Grants a permission group to an account.
+  ///
+  /// Grants the permissions associated with the [permissionGroupId] to the
+  /// account identified by [accountId] for the specified objects.
+  ///
+  /// If [objectIds] is not provided, permissions are granted to all available
+  /// objects.
+  ///
+  /// Parameters:
+  /// - [accountId]: The ID of the account to which the permission group is
+  /// granted.
+  /// - [permissionGroupId]: The ID of the permission group to grant.
+  /// - [objectIds]: (Optional) The IDs of the objects for which permissions are
+  /// granted.
+  ///
+  /// Returns a [Future] containing a list of [RoleAssignmentModel] instances
+  /// representing the newly created role assignments.
+  Future<List<RoleAssignmentModel>> grantPermissionGroupToAccount(
     String accountId,
-    String roleId, {
+    String permissionGroupId, {
     List<String>? objectIds,
   }) async {
     var objIds = objectIds ?? <String>[];
@@ -660,7 +1006,7 @@ class RbacService {
           await _dataInterface.getRoleAssignmentsByReference(
         objectId: objectId,
         accountId: accountId,
-        roleId: roleId,
+        permissionGroupId: permissionGroupId,
       );
 
       if (duplicateAssignments.isEmpty) {
@@ -670,7 +1016,7 @@ class RbacService {
           id: id,
           objectId: objectId,
           accountId: accountId,
-          roleId: roleId,
+          permissionGroupId: permissionGroupId,
         );
 
         await _dataInterface.setRoleAssignment(assignment);
@@ -679,7 +1025,7 @@ class RbacService {
       } else {
         debugPrint(
           'Duplicate assignment: (ObjectID: $objectId, '
-          'AccountID: $accountId, RoleID: $roleId)',
+          'AccountID: $accountId, PermissionGroupID: $permissionGroupId)',
         );
       }
     }
@@ -687,19 +1033,25 @@ class RbacService {
     return assignments;
   }
 
-  /// Revokes a role from an account for specified objects.
+  /// Revokes a permission group from an account.
   ///
-  /// Revokes the role with ID [roleId] from the account with ID [accountId] for
-  /// the specified objects with IDs provided in [objectIds]. If [objectIds] is
-  /// not provided, this method revokes the role from all objects in the system.
-  /// For each object ID, this method retrieves all existing role assignments
-  /// with the specified account, object, and role combination, and deletes them
-  /// from the data interface.
+  /// Revokes the permissions associated with the [permissionGroupId] from the
+  /// account identified by [accountId] for the specified objects.
   ///
-  /// Returns `void`.
-  Future<void> revokeRole(
+  /// If [objectIds] is not provided, permissions are revoked from all available
+  /// objects.
+  ///
+  /// Parameters:
+  /// - [accountId]: The ID of the account from which the permission group is
+  /// revoked.
+  /// - [permissionGroupId]: The ID of the permission group to revoke.
+  /// - [objectIds]: (Optional) The IDs of the objects from which permissions
+  /// are revoked.
+  ///
+  /// Returns a [Future] indicating the completion of the operation.
+  Future<void> revokePerissionGroupFromAccount(
     String accountId,
-    String roleId, {
+    String permissionGroupId, {
     List<String>? objectIds,
   }) async {
     var objIds = objectIds ?? <String>[];
@@ -716,7 +1068,7 @@ class RbacService {
       var assignments = await _dataInterface.getRoleAssignmentsByReference(
         accountId: accountId,
         objectId: objId,
-        roleId: roleId,
+        permissionGroupId: permissionGroupId,
       );
 
       for (var assignment in assignments) {
@@ -725,17 +1077,132 @@ class RbacService {
     }
   }
 
-  /// Retrieves roles assigned to an account for a specific object.
+  /// Grants a permission group to an account group.
   ///
-  /// Retrieves roles assigned to the account with ID [accountId] for the object
-  /// with ID [objectId]. It queries the data interface to get all role
-  /// assignments matching the provided account and object IDs. Then, it
-  /// collects unique role IDs from these assignments and retrieves the
-  /// corresponding role data models from the data interface. Finally, it
-  /// returns a set of role data models associated with the account and object.
+  /// Grants the permissions associated with the [permissionGroupId] to the
+  /// account group identified by [accountGroupId] for the specified objects.
   ///
-  /// Returns a [Set] of [RoleDataModel].
-  Future<Set<RoleDataModel>> getAccountRoles(
+  /// If [objectIds] is not provided, permissions are granted to all available
+  /// objects.
+  ///
+  /// Parameters:
+  /// - [accountGroupId]: The ID of the account group to which the permission
+  /// group is granted.
+  /// - [permissionGroupId]: The ID of the permission group to grant.
+  /// - [objectIds]: (Optional) The IDs of the objects to which permissions are
+  /// granted.
+  ///
+  /// Returns a [Future] containing a list of [RoleAssignmentModel] representing
+  /// the assignments for each granted permission.
+  Future<List<RoleAssignmentModel>> grantPermissionGroupToAccountGroup(
+    String accountGroupId,
+    String permissionGroupId, {
+    List<String>? objectIds,
+  }) async {
+    var objIds = objectIds ?? <String>[];
+
+    if (objectIds == null) {
+      var objects = await _dataInterface.getAllSecurableObjects();
+
+      for (var object in objects) {
+        objIds.add(object.id);
+      }
+    }
+
+    var assignments = <RoleAssignmentModel>[];
+
+    for (var objectId in objIds) {
+      var duplicateAssignments =
+          await _dataInterface.getRoleAssignmentsByReference(
+        objectId: objectId,
+        accountGroupId: accountGroupId,
+        permissionGroupId: permissionGroupId,
+      );
+
+      if (duplicateAssignments.isEmpty) {
+        var id = _uuid.v4();
+
+        var assignment = RoleAssignmentModel(
+          id: id,
+          objectId: objectId,
+          accountGroupId: accountGroupId,
+          permissionGroupId: permissionGroupId,
+        );
+
+        await _dataInterface.setRoleAssignment(assignment);
+
+        assignments.add(assignment);
+      } else {
+        debugPrint(
+          'Duplicate assignment: (ObjectID: $objectId, AccountGroupID: '
+          '$accountGroupId, PermissionGroupID: $permissionGroupId)',
+        );
+      }
+    }
+
+    return assignments;
+  }
+
+  /// Revokes a permission group from an account group.
+  ///
+  /// Revokes the permissions associated with the [permissionGroupId] from the
+  /// account group identified by [accountGroupId] for the specified objects.
+  ///
+  /// If [objectIds] is not provided, permissions are revoked from all available
+  /// objects.
+  ///
+  /// Parameters:
+  /// - [accountGroupId]: The ID of the account group from which the permission
+  /// group is revoked.
+  /// - [permissionGroupId]: The ID of the permission group to revoke.
+  /// - [objectIds]: (Optional) The IDs of the objects from which permissions
+  /// are revoked.
+  ///
+  /// Returns a [Future] representing the asynchronous operation.
+  Future<void> revokePerissionGroupFromAccountGroup(
+    String accountGroupId,
+    String permissionGroupId, {
+    List<String>? objectIds,
+  }) async {
+    var objIds = objectIds ?? <String>[];
+
+    if (objectIds == null) {
+      var objects = await _dataInterface.getAllSecurableObjects();
+
+      for (var object in objects) {
+        objIds.add(object.id);
+      }
+    }
+
+    for (var objId in objIds) {
+      var assignments = await _dataInterface.getRoleAssignmentsByReference(
+        accountGroupId: accountGroupId,
+        objectId: objId,
+        permissionGroupId: permissionGroupId,
+      );
+
+      for (var assignment in assignments) {
+        await _dataInterface.deleteRoleAssignment(assignment.id);
+      }
+    }
+  }
+
+  // Other Methods /////////////////////////////////////////////////////////////
+
+  /// Retrieves the permission groups associated with an account for a specific
+  /// object.
+  ///
+  /// Retrieves the permission groups associated with the account identified by
+  /// [accountId] for the object identified by [objectId].
+  ///
+  /// Parameters:
+  /// - [accountId]: The ID of the account for which permission groups are
+  /// retrieved.
+  /// - [objectId]: The ID of the object for which permission groups are
+  /// retrieved.
+  ///
+  /// Returns a [Future] that completes with a [Set] of [PermissionGroupModel].
+  Future<Set<PermissionGroupModel>> getPermissionGroupsOfAccount(
     String accountId,
     String objectId,
   ) async {
@@ -744,66 +1211,48 @@ class RbacService {
       accountId: accountId,
     );
 
-    var roleIds = <String>{};
+    var permissionGroupsIds = <String>{};
 
     for (var assignment in assignments) {
-      if (assignment.roleId != null) {
-        roleIds.add(assignment.roleId!);
+      if (assignment.permissionGroupId != null) {
+        permissionGroupsIds.add(assignment.permissionGroupId!);
       }
     }
 
-    var roles = await _getRolesByIdList(roleIds.toList());
+    var accountGroups =
+        await _dataInterface.getAccountGroupsByAccountIds([accountId]);
 
-    return roles.toSet();
-  }
+    for (var ag in accountGroups) {
+      var groupAssignments = await _dataInterface.getRoleAssignmentsByReference(
+        objectId: objectId,
+        accountGroupId: ag.id,
+      );
 
-  /// Retrieves permissions granted to an account based on assigned roles for a
-  /// specific object.
-  ///
-  /// Retrieves permissions granted to the account with ID [accountId] based on
-  /// the roles assigned to it for the object with ID [objectId]. It first
-  /// retrieves the roles assigned to the account for the specified object using
-  /// [getAccountRoles] method. Then, it collects all unique permission IDs
-  /// associated with these roles and retrieves the corresponding permission
-  /// data models from the data interface. Finally, it returns a set of
-  /// permission data models granted to the account for the specified object.
-  ///
-  /// Returns a [Set] of [PermissionModel].
-  Future<Set<PermissionModel>> getAccountRolePermissions(
-    String accountId,
-    String objectId,
-  ) async {
-    var listOfPermissions = <PermissionModel>{};
-
-    var roles = await getAccountRoles(accountId, objectId);
-
-    for (var role in roles) {
-      listOfPermissions = {
-        ...listOfPermissions,
-        ...await _getPermissionsByIdList(role.permissionIds.toList()),
-      };
+      for (var assignment in groupAssignments) {
+        if (assignment.permissionGroupId != null) {
+          permissionGroupsIds.add(assignment.permissionGroupId!);
+        }
+      }
     }
 
-    return listOfPermissions;
+    var permissionGroups =
+        await _getPermissionGroupsByIdList(permissionGroupsIds.toList());
+
+    return permissionGroups.toSet();
   }
 
-  /// Retrieves permissions directly assigned to an account for a specific
+  /// Retrieves the permissions associated with an account for a specific
   /// object.
   ///
-  /// Retrieves permissions directly assigned to the account with ID [accountId]
-  /// for the object with ID [objectId]. It retrieves all role assignments
-  /// associated with the account and object from the data interface using
-  /// [getRoleAssignmentsByReference] method. Then, it collects all unique
-  /// permission IDs from these role assignments. For each role assignment with
-  /// a role ID, it retrieves the corresponding role from the data interface and
-  /// adds its permission IDs to the set. If a role assignment has a permission
-  /// ID directly, it adds that permission ID to the set. Finally, it retrieves
-  /// the permission data models corresponding to the collected permission IDs
-  /// and returns a set of permission models directly assigned to the account
-  /// for the specified object.
+  /// Retrieves the permissions associated with the account identified by
+  /// [accountId] for the object identified by [objectId].
   ///
-  /// Returns a [Set] of [PermissionModel].
-  Future<Set<PermissionModel>> getAccountPermissions(
+  /// Parameters:
+  /// - [accountId]: The ID of the account for which permissions are retrieved.
+  /// - [objectId]: The ID of the object for which permissions are retrieved.
+  ///
+  /// Returns a [Future] that completes with a [Set] of [PermissionModel].
+  Future<Set<PermissionModel>> getPermissionsOfAccount(
     String accountId,
     String objectId,
   ) async {
@@ -815,16 +1264,42 @@ class RbacService {
     );
 
     for (var assignment in assignments) {
-      if (assignment.roleId != null) {
-        var role = await _dataInterface.getRoleById(assignment.roleId!);
+      if (assignment.permissionGroupId != null) {
+        var group = await _dataInterface
+            .getPermissionGroupById(assignment.permissionGroupId!);
 
-        if (role != null) {
-          permissionsIds.addAll(role.permissionIds);
+        if (group != null) {
+          permissionsIds.addAll(group.permissionIds);
         }
       }
 
       if (assignment.permissionId != null) {
         permissionsIds.add(assignment.permissionId!);
+      }
+    }
+
+    var accountGroups =
+        await _dataInterface.getAccountGroupsByAccountIds([accountId]);
+
+    for (var ag in accountGroups) {
+      var assignments = await _dataInterface.getRoleAssignmentsByReference(
+        objectId: objectId,
+        accountGroupId: ag.id,
+      );
+
+      for (var assignment in assignments) {
+        if (assignment.permissionGroupId != null) {
+          var group = await _dataInterface
+              .getPermissionGroupById(assignment.permissionGroupId!);
+
+          if (group != null) {
+            permissionsIds.addAll(group.permissionIds);
+          }
+        }
+
+        if (assignment.permissionId != null) {
+          permissionsIds.add(assignment.permissionId!);
+        }
       }
     }
 
@@ -834,29 +1309,20 @@ class RbacService {
     return permissions;
   }
 
-  /// Retrieves all role assignments.
-  ///
-  /// Retrieves all role assignments from the data interface using the
-  /// [getRoleAssignmentsByReference] method without specifying any criteria.
-  /// This method retrieves and returns a list of all role assignment models
-  /// stored in the data interface.
-  ///
-  /// Returns a [List] of [RoleAssignmentModel].
-  Future<List<RoleAssignmentModel>> getAllRoleAssignments() async =>
-      _dataInterface.getRoleAssignmentsByReference();
+  Future<List<PermissionGroupModel>> _getPermissionGroupsByIdList(
+    List<String> permissionGroupIds,
+  ) async {
+    var groups = <PermissionGroupModel>[];
 
-  Future<List<RoleDataModel>> _getRolesByIdList(List<String> roleIds) async {
-    var roles = <RoleDataModel>[];
+    for (var groupId in permissionGroupIds) {
+      var group = await _dataInterface.getPermissionGroupById(groupId);
 
-    for (var roleId in roleIds) {
-      var role = await _dataInterface.getRoleById(roleId);
-
-      if (role != null) {
-        roles.add(role);
+      if (group != null) {
+        groups.add(group);
       }
     }
 
-    return roles;
+    return groups;
   }
 
   Future<List<PermissionModel>> _getPermissionsByIdList(

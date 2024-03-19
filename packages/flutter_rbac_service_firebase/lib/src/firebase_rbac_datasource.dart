@@ -10,17 +10,19 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   FirebaseRbacDatasource({
     required this.firebaseApp,
     this.securableObjectCollectionName = 'rbac_securable_objects',
-    this.roleCollectionName = 'rbac_roles',
     this.accountCollectionName = 'rbac_accounts',
+    this.accountGroupCollectionName = 'rbac_account_groups',
     this.permissionCollectionName = 'rbac_permissions',
+    this.permissionGroupCollectionName = 'rbac_permission_groups',
     this.roleAssignmentObjectCollectionName = 'rbac_role_assignments',
   });
 
   final FirebaseApp firebaseApp;
   final String securableObjectCollectionName;
-  final String roleCollectionName;
   final String accountCollectionName;
+  final String accountGroupCollectionName;
   final String permissionCollectionName;
+  final String permissionGroupCollectionName;
   final String roleAssignmentObjectCollectionName;
 
   ///////////////////////// CRUD Securable Objects /////////////////////////////
@@ -28,18 +30,18 @@ class FirebaseRbacDatasource implements RbacDataInterface {
       .collection(securableObjectCollectionName)
       .withConverter(
         fromFirestore: (snapshot, options) =>
-            SecurableObjectDataModel.fromMap(snapshot.id, snapshot.data()!),
+            SecurableObjectModel.fromMap(snapshot.id, snapshot.data()!),
         toFirestore: (object, options) => object.toMap(),
       );
 
   @override
   Future<void> setSecurableObject(
-    SecurableObjectDataModel object,
+    SecurableObjectModel object,
   ) async =>
       _objectCollection.doc(object.id).set(object);
 
   @override
-  Future<SecurableObjectDataModel?> getSecurableObjectById(
+  Future<SecurableObjectModel?> getSecurableObjectById(
     String objectId,
   ) async {
     var snapshot = await _objectCollection.doc(objectId).get();
@@ -48,7 +50,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   }
 
   @override
-  Future<SecurableObjectDataModel?> getSecurableObjectByName(
+  Future<SecurableObjectModel?> getSecurableObjectByName(
     String objectName,
   ) async {
     var snapshot =
@@ -58,7 +60,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   }
 
   @override
-  Future<List<SecurableObjectDataModel>> getAllSecurableObjects() async {
+  Future<List<SecurableObjectModel>> getAllSecurableObjects() async {
     var snapshot = await _objectCollection.get();
 
     return snapshot.docs.map((d) => d.data()).toList();
@@ -68,81 +70,29 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   Future<void> deleteSecurableObject(String objectId) async =>
       _objectCollection.doc(objectId).delete();
 
-  /////////////////////////////// CRUD Roles ///////////////////////////////////
-  late final _roleCollection = FirebaseFirestore.instanceFor(app: firebaseApp)
-      .collection(roleCollectionName)
-      .withConverter(
-        fromFirestore: (snapshot, options) =>
-            RoleDataModel.fromMap(snapshot.id, snapshot.data()!),
-        toFirestore: (object, options) => object.toMap(),
-      );
-
-  @override
-  Future<void> setRole(
-    RoleDataModel role,
-  ) async =>
-      _roleCollection.doc(role.id).set(role);
-
-  @override
-  Future<RoleDataModel?> getRoleById(String roleId) async {
-    var snapshot = await _roleCollection.doc(roleId).get();
-
-    return snapshot.data();
-  }
-
-  @override
-  Future<RoleDataModel?> getRoleByName(String roleName) async {
-    var snapshot =
-        await _roleCollection.where('name', isEqualTo: roleName).get();
-
-    return snapshot.docs.firstOrNull?.data();
-  }
-
-  @override
-  Future<List<RoleDataModel>> getRolesByPermissionIds(
-    List<String> permissionIds,
-  ) async {
-    var snapshot = await _roleCollection
-        .where('permissions_ids', arrayContainsAny: permissionIds)
-        .get();
-
-    return snapshot.docs.map((s) => s.data()).toList();
-  }
-
-  @override
-  Future<List<RoleDataModel>> getAllRoles() async {
-    var snapshot = await _roleCollection.get();
-
-    return snapshot.docs.map((d) => d.data()).toList();
-  }
-
-  @override
-  Future<void> deleteRole(String roleId) async =>
-      _roleCollection.doc(roleId).delete();
-
   ///////////////////////////// CRUD Accounts //////////////////////////////////
   late final _accountCollection =
       FirebaseFirestore.instanceFor(app: firebaseApp)
           .collection(accountCollectionName)
           .withConverter(
             fromFirestore: (snapshot, options) =>
-                AccountDataModel.fromMap(snapshot.id, snapshot.data()!),
+                AccountModel.fromMap(snapshot.id, snapshot.data()!),
             toFirestore: (object, options) => object.toMap(),
           );
 
   @override
-  Future<void> setAccount(AccountDataModel account) async =>
+  Future<void> setAccount(AccountModel account) async =>
       _accountCollection.doc(account.id).set(account);
 
   @override
-  Future<AccountDataModel?> getAccountById(String accountId) async {
+  Future<AccountModel?> getAccountById(String accountId) async {
     var snapshot = await _accountCollection.doc(accountId).get();
 
     return snapshot.data();
   }
 
   @override
-  Future<AccountDataModel?> getAccountByEmail(String accountEmail) async {
+  Future<AccountModel?> getAccountByEmail(String accountEmail) async {
     var snapshot =
         await _accountCollection.where('email', isEqualTo: accountEmail).get();
 
@@ -150,7 +100,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   }
 
   @override
-  Future<List<AccountDataModel>> getAllAccounts() async {
+  Future<List<AccountModel>> getAllAccounts() async {
     var snapshot = await _accountCollection.get();
 
     return snapshot.docs.map((d) => d.data()).toList();
@@ -159,6 +109,60 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   @override
   Future<void> deleteAccount(String accountId) async =>
       _accountCollection.doc(accountId).delete();
+
+  ////////////////////////// CRUD Account Groups ///////////////////////////////
+  late final _accountGroupCollection =
+      FirebaseFirestore.instanceFor(app: firebaseApp)
+          .collection(accountGroupCollectionName)
+          .withConverter(
+            fromFirestore: (snapshot, options) =>
+                AccountGroupModel.fromMap(snapshot.id, snapshot.data()!),
+            toFirestore: (object, options) => object.toMap(),
+          );
+
+  @override
+  Future<void> setAccountGroup(AccountGroupModel accountGroup) async =>
+      _accountGroupCollection.doc(accountGroup.id).set(accountGroup);
+
+  @override
+  Future<AccountGroupModel?> getAccountGroupById(String accountGroupId) async {
+    var snapshot = await _accountGroupCollection.doc(accountGroupId).get();
+
+    return snapshot.data();
+  }
+
+  @override
+  Future<AccountGroupModel?> getAccountGroupByName(
+    String accountGroupName,
+  ) async {
+    var snapshot = await _accountGroupCollection
+        .where('name', isEqualTo: accountGroupName)
+        .get();
+
+    return snapshot.docs.firstOrNull?.data();
+  }
+
+  @override
+  Future<List<AccountGroupModel>> getAccountGroupsByAccountIds(
+    List<String> accountIds,
+  ) async {
+    var snapshot = await _accountGroupCollection
+        .where('account_ids', arrayContainsAny: accountIds)
+        .get();
+
+    return snapshot.docs.map((s) => s.data()).toList();
+  }
+
+  @override
+  Future<List<AccountGroupModel>> getAllAccountGroups() async {
+    var snapshot = await _accountGroupCollection.get();
+
+    return snapshot.docs.map((d) => d.data()).toList();
+  }
+
+  @override
+  Future<void> deleteAccountGroup(String accountGroupId) async =>
+      _accountGroupCollection.doc(accountGroupId).delete();
 
   /////////////////////////// CRUD Permissions /////////////////////////////////
   late final _permissionCollection =
@@ -201,6 +205,65 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   Future<void> deletePermission(String permissionId) async =>
       _permissionCollection.doc(permissionId).delete();
 
+  ///////////////////////// CRUD Permission Groups  ////////////////////////////
+  late final _permissionGroupCollection =
+      FirebaseFirestore.instanceFor(app: firebaseApp)
+          .collection(permissionGroupCollectionName)
+          .withConverter(
+            fromFirestore: (snapshot, options) =>
+                PermissionGroupModel.fromMap(snapshot.id, snapshot.data()!),
+            toFirestore: (object, options) => object.toMap(),
+          );
+
+  @override
+  Future<void> setPermissionGroup(
+    PermissionGroupModel permissionGroup,
+  ) async =>
+      _permissionGroupCollection.doc(permissionGroup.id).set(permissionGroup);
+
+  @override
+  Future<PermissionGroupModel?> getPermissionGroupById(
+    String permissionGroupId,
+  ) async {
+    var snapshot =
+        await _permissionGroupCollection.doc(permissionGroupId).get();
+
+    return snapshot.data();
+  }
+
+  @override
+  Future<PermissionGroupModel?> getPermissionGroupByName(
+    String permissionGroupName,
+  ) async {
+    var snapshot = await _permissionGroupCollection
+        .where('name', isEqualTo: permissionGroupName)
+        .get();
+
+    return snapshot.docs.firstOrNull?.data();
+  }
+
+  @override
+  Future<List<PermissionGroupModel>> getPermissionGroupsByPermissionIds(
+    List<String> permissionIds,
+  ) async {
+    var snapshot = await _permissionGroupCollection
+        .where('permissions_ids', arrayContainsAny: permissionIds)
+        .get();
+
+    return snapshot.docs.map((s) => s.data()).toList();
+  }
+
+  @override
+  Future<List<PermissionGroupModel>> getAllPermissionGroups() async {
+    var snapshot = await _permissionGroupCollection.get();
+
+    return snapshot.docs.map((d) => d.data()).toList();
+  }
+
+  @override
+  Future<void> deletePermissionGroup(String permissionGroupId) async =>
+      _permissionGroupCollection.doc(permissionGroupId).delete();
+
   /////////////////////////// CRUD Assignments /////////////////////////////////
   late final _assignmentCollection =
       FirebaseFirestore.instanceFor(app: firebaseApp)
@@ -232,8 +295,9 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   Future<List<RoleAssignmentModel>> getRoleAssignmentsByReference({
     String? objectId,
     String? accountId,
-    String? roleId,
+    String? accountGroupId,
     String? permissionId,
+    String? permissionGroupId,
   }) async {
     Query<RoleAssignmentModel>? target;
 
@@ -250,11 +314,14 @@ class FirebaseRbacDatasource implements RbacDataInterface {
       }
     }
 
-    if (roleId != null) {
+    if (accountGroupId != null) {
       if (target == null) {
-        target = _assignmentCollection.where('role_id', isEqualTo: roleId);
+        target = _assignmentCollection.where(
+          'account_group_id',
+          isEqualTo: accountGroupId,
+        );
       } else {
-        target = target.where('role_id', isEqualTo: roleId);
+        target = target.where('account_group_id', isEqualTo: accountGroupId);
       }
     }
 
@@ -266,6 +333,18 @@ class FirebaseRbacDatasource implements RbacDataInterface {
         );
       } else {
         target = target.where('permission_id', isEqualTo: permissionId);
+      }
+    }
+
+    if (permissionGroupId != null) {
+      if (target == null) {
+        target = _assignmentCollection.where(
+          'permission_group_id',
+          isEqualTo: permissionGroupId,
+        );
+      } else {
+        target =
+            target.where('permission_group_id', isEqualTo: permissionGroupId);
       }
     }
 
