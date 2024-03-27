@@ -247,7 +247,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
     List<String> permissionIds,
   ) async {
     var snapshot = await _permissionGroupCollection
-        .where('permissions_ids', arrayContainsAny: permissionIds)
+        .where('permission_ids', arrayContainsAny: permissionIds)
         .get();
 
     return snapshot.docs.map((s) => s.data()).toList();

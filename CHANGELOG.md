@@ -1,3 +1,8 @@
+## 2.1.0
+
+- Added rbac view, a rbac management package.
+- Fixed some minor issues.
+
 ## 2.0.0
 
 - Added the account group functionality.

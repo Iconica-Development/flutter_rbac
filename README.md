@@ -95,6 +95,49 @@ From here the following methods can be called from this service to set up and us
 - getPermissionGroupsOfAccount(String accountId, String objectId): Retrieves the permission groups associated with an account for a specific object.
 - getPermissionsOfAccount(String accountId, String objectId): Retrieves the permissions associated with an account for a specific object. 
 
+## View: Screens and Corresponding onTap Routes
+#### AccountOverviewScreen
+- **onTapPermissions**: Navigate to PermissionOverviewScreen
+- **onTapObjects**: Navigate to ObjectOverviewScreen
+- **onTapCreateLink**: Navigate to CreateLinkScreen
+- **onTapAccount**: Navigate to AccountDetailScreen with specific account ID
+- **onTapAccountGroup**: Navigate to AccountGroupScreen with specific group ID
+
+#### AccountDetailScreen
+- **onTapPermissions**: Navigate to PermissionOverviewScreen
+- **onTapObjects**: Navigate to ObjectOverviewScreen
+- **onTapCreateLink**: Navigate to CreateLinkScreen
+- **onBack**: Navigate back
+
+#### AccountGroupScreen
+- **onTapPermissions**: Navigate to PermissionOverviewScreen
+- **onTapObjects**: Navigate to ObjectOverviewScreen
+- **onTapCreateLink**: Navigate to CreateLinkScreen
+- **onBack**: Navigate back
+
+#### PermissionOverviewScreen
+- **onTapAccounts**: Navigate to AccountOverviewScreen
+- **onTapObjects**: Navigate to ObjectOverviewScreen
+- **onTapCreateLink**: Navigate to CreateLinkScreen
+
+#### ObjectOverviewScreen
+- **onTapAccounts**: Navigate to AccountOverviewScreen
+- **onTapPermissions**: Navigate to PermissionOverviewScreen
+- **onTapCreateLink**: Navigate to CreateLinkScreen
+- **onTapObject**: Navigate to ObjectDetailScreen with specific object ID
+
+#### ObjectDetailScreen
+- **onTapAccounts**: Navigate to AccountOverviewScreen
+- **onTapPermissions**: Navigate to PermissionOverviewScreen
+- **onTapCreateLink**: Navigate to CreateLinkScreen
+- **onBack**: Navigate back
+
+#### CreateLinkScreen
+- **onTapAccounts**: Navigate to AccountOverviewScreen
+- **onTapPermissions**: Navigate to PermissionOverviewScreen
+- **onTapObjects**: Navigate to ObjectOverviewScreen
+- **onBack**: Navigate back
+
 ## Issues
 
 Please file any issues, bugs or feature request as an issue on our [GitHub](https://github.com/Iconica-Development/flutter_rbac_service/pulls) page. Commercial support is available if you need help with integration with your app or services. You can contact us at [support@iconica.nl](mailto:support@iconica.nl).

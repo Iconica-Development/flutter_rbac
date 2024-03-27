@@ -1,4 +1,4 @@
-name: flutter_rbac_service_firebase
+name: flutter_rbac_view
 description: A new Flutter package project.
 version: 2.1.0
 publish_to: "none"
@@ -8,8 +8,6 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  cloud_firestore: ^4.5.0
-  firebase_core: ^2.9.0
   flutter:
     sdk: flutter
   flutter_rbac_service_data_interface:
@@ -17,6 +15,15 @@ dependencies:
       url: https://github.com/Iconica-Development/flutter_rbac
       path: packages/flutter_rbac_service_data_interface
       ref: 2.1.0
+  flutter_rbac_service:
+    git:
+      url: https://github.com/Iconica-Development/flutter_rbac
+      path: packages/flutter_rbac_service
+      ref: 2.1.0  
+  flutter_menu:
+    git:
+      url: https://github.com/Iconica-Development/flutter_menu.git
+      ref: 0.0.3
 
 dev_dependencies:
   flutter_test:
@@ -27,3 +34,12 @@ dev_dependencies:
       ref: 6.0.0
 
 flutter:
+  fonts:
+    - family: Avenir
+      fonts:
+        - asset: assets/fonts/Avenir/Avenir-Regular.ttf
+        - asset: assets/fonts/Avenir/Avenir-Heavy.ttf
+          weight: 700
+        - asset: assets/fonts/Avenir/Avenir-Black.ttf
+          weight: 900
+
