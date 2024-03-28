@@ -225,12 +225,23 @@ class RbacService {
   ///
   /// Returns a [Future] that completes with the created [AccountGroupModel].
   Future<AccountGroupModel> createAccountGroup(
-    String id,
     String name,
     Set<String> accountIds,
   ) async {
-    var group = AccountGroupModel(id: id, name: name, accountIds: accountIds);
+    var foundGroup = await _dataInterface.getAccountGroupByName(name);
 
+    if (foundGroup != null) {
+      debugPrint('Account group already exists: (ID: ${foundGroup.id},'
+          ' Name: ${foundGroup.name})');
+
+      return foundGroup;
+    }
+
+    var group = AccountGroupModel(
+      id: _uuid.v4(),
+      name: name,
+      accountIds: accountIds,
+    );
     await _dataInterface.setAccountGroup(group);
 
     return group;
@@ -257,6 +268,11 @@ class RbacService {
     String accountGroupName,
   ) async =>
       _dataInterface.getAccountGroupByName(accountGroupName);
+
+  Future<List<AccountGroupModel>> getAccountGroupsByAccountIds(
+    List<String> accountIds,
+  ) async =>
+      _dataInterface.getAccountGroupsByAccountIds(accountIds);
 
   /// Retrieves all account groups.
   ///
@@ -492,26 +508,19 @@ class RbacService {
 
   // Permission Groups /////////////////////////////////////////////////////////
 
-  /// Creates a new permission group.
-  ///
-  /// Creates a new permission group with the specified [name] and
-  /// [permissionIds].
-  /// If a permission group with the same name already exists, returns the
-  /// existing group.
-  ///
-  /// Returns a [Future] that completes with the created [PermissionGroupModel].
   Future<PermissionGroupModel> createPermissionGroup(
     String name,
     Set<String> permissionIds,
   ) async {
-    var foundGroup = await _dataInterface.getPermissionGroupByName(name);
+    var foundGroup = await _dataInterface
+        .getPermissionGroupsByPermissionIds(permissionIds.toList());
 
-    if (foundGroup != null) {
-      debugPrint('Permission group already exists: (ID: ${foundGroup.id},'
-          ' Name: ${foundGroup.name},'
-          ' PermissionIDs: ${foundGroup.permissionIds})');
+    if (foundGroup.isNotEmpty) {
+      debugPrint('Permission group already exists: (ID: ${foundGroup.first.id},'
+          ' Name: ${foundGroup.first.name},'
+          ' PermissionIDs: ${foundGroup.first.permissionIds})');
 
-      return foundGroup;
+      return foundGroup.first;
     }
 
     var group = PermissionGroupModel(
