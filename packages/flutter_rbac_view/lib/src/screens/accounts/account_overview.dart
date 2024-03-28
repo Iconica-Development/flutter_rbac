@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 Iconica
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rbac_service/flutter_rbac_service.dart';
 import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
@@ -17,6 +21,8 @@ class AccountOverviewScreen extends StatefulWidget {
     required this.onQuit,
     super.key,
   });
+
+  static const String route = 'AccountOverviewScreen';
 
   final RbacService rbacService;
 

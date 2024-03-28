@@ -1,4 +1,7 @@
-// ignore: depend_on_referenced_packages
+// SPDX-FileCopyrightText: 2024 Iconica
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'dart:async';
@@ -26,6 +29,8 @@ class ObjectDetailScreen extends StatefulWidget {
     required this.onQuit,
     super.key,
   });
+
+  static const String route = 'ObjectDetailScreen';
 
   final RbacService rbacService;
   final String objectId;
