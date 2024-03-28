@@ -1,6 +1,6 @@
 name: flutter_rbac_view
 description: A new Flutter package project.
-version: 2.1.0
+version: 2.2.0
 publish_to: "none"
 
 environment:
@@ -10,16 +10,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  go_router: any  
   flutter_rbac_service_data_interface:
     git:
       url: https://github.com/Iconica-Development/flutter_rbac
       path: packages/flutter_rbac_service_data_interface
-      ref: 2.1.0
+      ref: 2.2.0
   flutter_rbac_service:
     git:
       url: https://github.com/Iconica-Development/flutter_rbac
       path: packages/flutter_rbac_service
-      ref: 2.1.0  
+      ref: 2.2.0  
   flutter_menu:
     git:
       url: https://github.com/Iconica-Development/flutter_menu.git

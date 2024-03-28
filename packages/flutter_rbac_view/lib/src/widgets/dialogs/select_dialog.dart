@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 Iconica
+//
+// SPDX-License-Identifier: BSD-3-Clause
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rbac_view/src/models/selectable_dialog_item.dart';
 import 'package:flutter_rbac_view/src/widgets/primary_button.dart';

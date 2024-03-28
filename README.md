@@ -26,10 +26,10 @@ To use this package initialize the `RBACService` with your prefered datasource. 
 
 ```
 RbacService(
-        FirebaseRbacDatasource(
-          firebaseApp: Firebase.app(),
-        ),
-      ),
+  dataInterface: FirebaseRbacDatasource(
+    firebaseApp: Firebase.app(),
+  ),
+)
 ```
 
 From here the following methods can be called from this service to set up and use RBAC:
@@ -95,7 +95,53 @@ From here the following methods can be called from this service to set up and us
 - getPermissionGroupsOfAccount(String accountId, String objectId): Retrieves the permission groups associated with an account for a specific object.
 - getPermissionsOfAccount(String accountId, String objectId): Retrieves the permissions associated with an account for a specific object. 
 
-## View: Screens and Corresponding onTap Routes
+## View 
+There are multiple ways to use the RBAC management view. All are shown below:
+
+### RbacManagement widget
+Route to the `RbacScreen` widget to show the first screen of the view. All futher routing is managed internally:
+
+```
+RbacManagement(
+  rbacService: RbacService(
+    dataInterface: PreferredDataInterface,
+  ),
+  onQuit: () {},
+)
+```
+
+### Go Router 
+Add go_router as dependency to your project.
+Add the following configuration to your flutter_application:
+
+```
+List<GoRoute> getRbacViewRoutes() => getRbacViewRoutes(
+      closeRoute: '',
+      rbacService: RbacService(
+        dataInterface: PreferedDataInterface,
+      ),
+    );
+```
+
+Add the `getRbacViewRoutes()` to your go_router routes like so:
+
+```
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const MyHomePage(
+          title: "home",
+        );
+      },
+    ),
+    ...getRbacViewRoutes()
+  ],
+);
+```
+
+### Screens and Corresponding onTap Routes
 #### AccountOverviewScreen
 - **onTapPermissions**: Navigate to PermissionOverviewScreen
 - **onTapObjects**: Navigate to ObjectOverviewScreen

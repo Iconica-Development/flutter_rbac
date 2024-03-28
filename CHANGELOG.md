@@ -1,3 +1,8 @@
+## 2.2.0
+
+- Addition of RbacManagement to manage RBAC Permissions from within the app.
+- Addition of getRbacViewRoutes to add the RBAC management routes to the app routes.
+
 ## 2.1.0
 
 - Added rbac view, a rbac management package.
