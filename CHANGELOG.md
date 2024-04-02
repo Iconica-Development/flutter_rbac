@@ -1,3 +1,8 @@
+## 2.2.1
+
+- Addition of example of the RBAC_view.
+- Fix missiing permissions from object detail screen on accountGroups.
+
 ## 2.2.0
 
 - Addition of RbacManagement to manage RBAC Permissions from within the app.
