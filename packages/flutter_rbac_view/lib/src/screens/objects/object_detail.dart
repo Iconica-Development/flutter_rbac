@@ -143,7 +143,7 @@ class _ObjectDetailScreenState extends State<ObjectDetailScreen> {
               accountIds.add((e.accountId!, null));
             } else if (e.accountGroupId != null) {
               var accountGroup = await widget.rbacService
-                  .getAccountGroupById(e.permissionGroupId!);
+                  .getAccountGroupById(e.accountGroupId!);
 
               if (accountGroup != null)
                 for (var accId in accountGroup.accountIds) {

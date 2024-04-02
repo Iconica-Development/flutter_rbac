@@ -6,7 +6,11 @@ import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_in
 
 class LocalRbacDatasource implements RbacDataInterface {
   final securableObjectMap = <String, SecurableObjectModel>{};
-  final accountMap = <String, AccountModel>{};
+  final accountMap = <String, AccountModel>{
+    'user_1': const AccountModel(id: 'user_1', email: 'user_1@email.com'),
+    'user_2': const AccountModel(id: 'user_2', email: 'user_2@email.com'),
+    'user_3': const AccountModel(id: 'user_3', email: 'user_3@email.com'),
+  };
   final accountGroupMap = <String, AccountGroupModel>{};
   final permissionMap = <String, PermissionModel>{};
   final permissionGroupMap = <String, PermissionGroupModel>{};

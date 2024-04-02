@@ -256,7 +256,7 @@ class _RbacScreenState extends State<RbacScreen> {
   }
 
   Future<void> _navigate(BuildContext context, Widget screen) =>
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).push(
         MaterialPageRoute(builder: (c) => screen),
       );
 

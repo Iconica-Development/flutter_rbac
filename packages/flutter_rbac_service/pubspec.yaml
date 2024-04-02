@@ -1,6 +1,6 @@
 name: flutter_rbac_service
 description: A new Flutter package project.
-version: 2.2.0
+version: 2.2.1
 publish_to: "none"
 
 environment:
@@ -14,7 +14,7 @@ dependencies:
     git:
       url: https://github.com/Iconica-Development/flutter_rbac
       path: packages/flutter_rbac_service_data_interface
-      ref: 2.2.0
+      ref: 2.2.1
   uuid: ^4.3.3    
 
 dev_dependencies:
