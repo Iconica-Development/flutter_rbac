@@ -15,11 +15,11 @@ class RoleAssignmentModel {
   factory RoleAssignmentModel.fromMap(String id, Map<String, dynamic> map) =>
       RoleAssignmentModel(
         id: id,
-        objectId: map['object_id'] ?? '',
-        accountId: map['account_id'],
-        accountGroupId: map['account_group_id'],
-        permissionId: map['permission_id'],
-        permissionGroupId: map['permission_group_id'],
+        objectId: map["object_id"] ?? "",
+        accountId: map["account_id"],
+        accountGroupId: map["account_group_id"],
+        permissionId: map["permission_id"],
+        permissionGroupId: map["permission_group_id"],
       );
 
   final String id;
@@ -30,10 +30,10 @@ class RoleAssignmentModel {
   final String? permissionGroupId;
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'object_id': objectId,
-        'account_group_id': accountGroupId,
-        'account_id': accountId,
-        'permission_id': permissionId,
-        'permission_group_id': permissionGroupId,
+        "object_id": objectId,
+        "account_group_id": accountGroupId,
+        "account_id": accountId,
+        "permission_id": permissionId,
+        "permission_group_id": permissionGroupId,
       };
 }

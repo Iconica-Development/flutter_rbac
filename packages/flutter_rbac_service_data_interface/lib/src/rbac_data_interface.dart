@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
 
 abstract class RbacDataInterface {
   RbacDataInterface._();

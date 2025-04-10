@@ -2,17 +2,17 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'dart:async';
+import "dart:async";
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/models/selectable_dialog_item.dart';
-import 'package:flutter_rbac_view/src/widgets/dialogs/name_dialog.dart';
-import 'package:flutter_rbac_view/src/widgets/dialogs/select_dialog.dart';
-import 'package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/rbac_data_table.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/models/selectable_dialog_item.dart";
+import "package:flutter_rbac_view/src/widgets/dialogs/name_dialog.dart";
+import "package:flutter_rbac_view/src/widgets/dialogs/select_dialog.dart";
+import "package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/rbac_data_table.dart";
 
 class PermissionGroupTable extends StatefulWidget {
   const PermissionGroupTable({
@@ -35,9 +35,9 @@ class PermissionGroupTable extends StatefulWidget {
 class _PermissionGroupTableState extends State<PermissionGroupTable> {
   @override
   Widget build(BuildContext context) => RbacDataTable<PermissionGroupModel>(
-        title: 'Permission groups',
-        tableTitle: 'PERMISSION GROUPS',
-        titleButtonText: 'Create permission group',
+        title: "Permission groups",
+        tableTitle: "PERMISSION GROUPS",
+        titleButtonText: "Create permission group",
         titleButtonOnTap: () async {
           String? name;
           Set<String>? permissionIds;
@@ -45,7 +45,7 @@ class _PermissionGroupTableState extends State<PermissionGroupTable> {
           await showDialog(
             context: context,
             builder: (context) => NameDialog(
-              title: 'Name your permission group',
+              title: "Name your permission group",
               onSuccesfullCommit: (value) async {
                 name = value;
               },
@@ -59,7 +59,7 @@ class _PermissionGroupTableState extends State<PermissionGroupTable> {
             await showDialog(
               context: context,
               builder: (context) => SelectDialog(
-                title: 'Choose permissions for this group',
+                title: "Choose permissions for this group",
                 onSuccesfullCommit: (value) async {
                   permissionIds = value;
                 },
@@ -90,7 +90,7 @@ class _PermissionGroupTableState extends State<PermissionGroupTable> {
                 (
                   group.permissionIds
                       .map((p) => widget.permissions?[p]?.name)
-                      .join(' + '),
+                      .join(" + "),
                   1
                 ),
                 (group.id, 1),

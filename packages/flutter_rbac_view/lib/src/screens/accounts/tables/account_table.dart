@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/rbac_data_table.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/rbac_data_table.dart";
 
 class AccountTable extends StatefulWidget {
   const AccountTable({
@@ -39,8 +39,8 @@ class _AccountTableState extends State<AccountTable> {
   Widget build(BuildContext context) => FutureBuilder(
         future: dataFuture,
         builder: (context, snapshot) => RbacDataTable<AccountModel>(
-          title: 'Accounts',
-          tableTitle: 'ACCOUNTS',
+          title: "Accounts",
+          tableTitle: "ACCOUNTS",
           items: snapshot.data,
           onTapRefresh: () {
             setState(() {
@@ -53,7 +53,7 @@ class _AccountTableState extends State<AccountTable> {
             if (account is AccountModel)
               return ListItem(
                 data: [
-                  (account.email ?? 'No email', 1),
+                  (account.email ?? "No email", 1),
                   (account.id, 1),
                   (null, 1),
                 ],

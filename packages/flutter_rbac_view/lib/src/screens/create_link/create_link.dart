@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_view/src/screens/create_link/tables/link_account_table.dart';
-import 'package:flutter_rbac_view/src/screens/create_link/tables/link_objects_table.dart';
-import 'package:flutter_rbac_view/src/screens/create_link/tables/link_permission_table.dart';
-import 'package:flutter_rbac_view/src/widgets/base_screen.dart';
-import 'package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_view/src/screens/create_link/tables/link_account_table.dart";
+import "package:flutter_rbac_view/src/screens/create_link/tables/link_objects_table.dart";
+import "package:flutter_rbac_view/src/screens/create_link/tables/link_permission_table.dart";
+import "package:flutter_rbac_view/src/widgets/base_screen.dart";
+import "package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart";
 
 class CreateLinkScreen extends StatefulWidget {
   const CreateLinkScreen({
@@ -22,7 +22,7 @@ class CreateLinkScreen extends StatefulWidget {
     super.key,
   });
 
-  static const String route = 'CreateLinkScreen';
+  static const String route = "CreateLinkScreen";
 
   final RbacService rbacService;
 
@@ -38,7 +38,7 @@ class CreateLinkScreen extends StatefulWidget {
 }
 
 class _CreateLinkScreenState extends State<CreateLinkScreen> {
-  var currentPage = 0;
+  int currentPage = 0;
 
   late Set<String> accountIds = {};
   late Set<String> accountGroupIds = {};
@@ -48,7 +48,7 @@ class _CreateLinkScreenState extends State<CreateLinkScreen> {
 
   late Set<String> objectIds = {};
 
-  var loading = false;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) => BaseScreen(
@@ -84,8 +84,8 @@ class _CreateLinkScreenState extends State<CreateLinkScreen> {
                           onSave: (objectIds) async {
                             if (await showSureDialog(
                               context,
-                              title: 'Are you sure you want to create these '
-                                  'links?',
+                              title: "Are you sure you want to create these "
+                                  "links?",
                             )) {
                               this.objectIds = objectIds;
 

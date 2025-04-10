@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/rbac_data_table.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/rbac_data_table.dart";
 
 class AccountGroupTable extends StatefulWidget {
   const AccountGroupTable({
@@ -40,12 +40,12 @@ class _AccountGroupTableState extends State<AccountGroupTable> {
   Widget build(BuildContext context) => FutureBuilder(
         future: dataFuture,
         builder: (context, snapshot) => RbacDataTable<AccountGroupModel>(
-          title: 'Account groups',
-          tableTitle: 'ACCOUNT GROUPS',
-          titleButtonText: 'Create account group',
+          title: "Account groups",
+          tableTitle: "ACCOUNT GROUPS",
+          titleButtonText: "Create account group",
           titleButtonOnTap: () async {
             var accountGroup = await widget.rbacService
-                .createAccountGroup('New account group', {});
+                .createAccountGroup("New account group", {});
 
             setState(() {
               dataFuture = getData();

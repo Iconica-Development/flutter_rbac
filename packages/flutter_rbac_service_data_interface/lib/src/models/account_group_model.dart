@@ -12,9 +12,9 @@ class AccountGroupModel {
   factory AccountGroupModel.fromMap(String id, Map<String, dynamic> map) =>
       AccountGroupModel(
         id: id,
-        name: map['name'],
+        name: map["name"],
         accountIds:
-            (map['account_ids'] as List<dynamic>?)?.cast<String>().toSet() ??
+            (map["account_ids"] as List<dynamic>?)?.cast<String>().toSet() ??
                 {},
       );
 
@@ -23,8 +23,8 @@ class AccountGroupModel {
   final Set<String> accountIds;
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'name': name,
-        'account_ids': accountIds,
+        "name": name,
+        "account_ids": accountIds,
       };
 
   AccountGroupModel copyWith({

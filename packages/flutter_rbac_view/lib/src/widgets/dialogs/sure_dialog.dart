@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_view/src/widgets/primary_button.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_view/src/widgets/primary_button.dart";
 
 class SureDialog extends StatelessWidget {
   const SureDialog({
-    this.title = 'Are you sure?',
+    this.title = "Are you sure?",
     super.key,
   });
 
@@ -30,7 +30,7 @@ class SureDialog extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                fontFamily: 'Avenir',
+                fontFamily: "Avenir",
                 fontWeight: FontWeight.w800,
                 fontSize: 18,
                 color: Color(0xFF212121),
@@ -43,7 +43,7 @@ class SureDialog extends StatelessWidget {
               onPressed: () async {
                 Navigator.of(context).pop(true);
               },
-              text: 'Yes',
+              text: "Yes",
             ),
             const SizedBox(
               height: 8,
@@ -55,9 +55,9 @@ class SureDialog extends StatelessWidget {
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 32, vertical: 4),
                 child: Text(
-                  'No',
+                  "No",
                   style: TextStyle(
-                    fontFamily: 'Avenir',
+                    fontFamily: "Avenir",
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                     color: Color(0xFF8D8D8D),
@@ -70,7 +70,10 @@ class SureDialog extends StatelessWidget {
       );
 }
 
-Future<bool> showSureDialog(context, {String title = 'Are you sure?'}) async {
+Future<bool> showSureDialog(
+  BuildContext context, {
+  String title = "Are you sure?",
+}) async {
   var result = await showDialog(
     context: context,
     builder: (context) => SureDialog(

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class BlockHeader extends StatelessWidget {
   const BlockHeader({
@@ -34,7 +34,7 @@ class BlockHeader extends StatelessWidget {
                     child: Text(
                       title.$1!,
                       style: const TextStyle(
-                        fontFamily: 'Avenir',
+                        fontFamily: "Avenir",
                         fontWeight: FontWeight.w800,
                         fontSize: 16,
                         color: Colors.white,

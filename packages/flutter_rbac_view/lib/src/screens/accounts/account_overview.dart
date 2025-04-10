@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/screens/accounts/tables/account_group_table.dart';
-import 'package:flutter_rbac_view/src/screens/accounts/tables/account_table.dart';
-import 'package:flutter_rbac_view/src/widgets/base_screen.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/screens/accounts/tables/account_group_table.dart";
+import "package:flutter_rbac_view/src/screens/accounts/tables/account_table.dart";
+import "package:flutter_rbac_view/src/widgets/base_screen.dart";
 
 class AccountOverviewScreen extends StatefulWidget {
   const AccountOverviewScreen({
@@ -22,7 +22,7 @@ class AccountOverviewScreen extends StatefulWidget {
     super.key,
   });
 
-  static const String route = 'AccountOverviewScreen';
+  static const String route = "AccountOverviewScreen";
 
   final RbacService rbacService;
 

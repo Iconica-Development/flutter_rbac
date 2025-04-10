@@ -89,33 +89,32 @@ packages:
   flutter_menu:
     dependency: transitive
     description:
-      path: "."
-      ref: "0.0.3"
-      resolved-ref: "82096ef75ba1ada74e5bbd8f474e8e27d028faa0"
-      url: "https://github.com/Iconica-Development/flutter_menu.git"
-    source: git
-    version: "0.0.3"
+      name: flutter_menu
+      sha256: "5cbf670dfadad41889245a8e3ce13af5b749986efa8808988c84f7caf3ab7893"
+      url: "https://forgejo.internal.iconica.nl/api/packages/internal/pub/"
+    source: hosted
+    version: "0.0.4"
   flutter_rbac_service:
     dependency: "direct main"
     description:
       path: "../../flutter_rbac_service"
       relative: true
     source: path
-    version: "2.2.1"
+    version: "2.2.2"
   flutter_rbac_service_data_interface:
     dependency: "direct overridden"
     description:
       path: "../../flutter_rbac_service_data_interface"
       relative: true
     source: path
-    version: "2.2.1"
+    version: "2.2.2"
   flutter_rbac_view:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "2.2.1"
+    version: "2.2.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter

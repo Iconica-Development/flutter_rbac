@@ -2,19 +2,19 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
+import "package:cloud_firestore/cloud_firestore.dart";
+import "package:firebase_core/firebase_core.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
 
 class FirebaseRbacDatasource implements RbacDataInterface {
   FirebaseRbacDatasource({
     required this.firebaseApp,
-    this.securableObjectCollectionName = 'rbac_securable_objects',
-    this.accountCollectionName = 'rbac_accounts',
-    this.accountGroupCollectionName = 'rbac_account_groups',
-    this.permissionCollectionName = 'rbac_permissions',
-    this.permissionGroupCollectionName = 'rbac_permission_groups',
-    this.roleAssignmentObjectCollectionName = 'rbac_role_assignments',
+    this.securableObjectCollectionName = "rbac_securable_objects",
+    this.accountCollectionName = "rbac_accounts",
+    this.accountGroupCollectionName = "rbac_account_groups",
+    this.permissionCollectionName = "rbac_permissions",
+    this.permissionGroupCollectionName = "rbac_permission_groups",
+    this.roleAssignmentObjectCollectionName = "rbac_role_assignments",
   });
 
   final FirebaseApp firebaseApp;
@@ -54,7 +54,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
     String objectName,
   ) async {
     var snapshot =
-        await _objectCollection.where('name', isEqualTo: objectName).get();
+        await _objectCollection.where("name", isEqualTo: objectName).get();
 
     return snapshot.docs.firstOrNull?.data();
   }
@@ -94,7 +94,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   @override
   Future<AccountModel?> getAccountByEmail(String accountEmail) async {
     var snapshot =
-        await _accountCollection.where('email', isEqualTo: accountEmail).get();
+        await _accountCollection.where("email", isEqualTo: accountEmail).get();
 
     return snapshot.docs.firstOrNull?.data();
   }
@@ -136,7 +136,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
     String accountGroupName,
   ) async {
     var snapshot = await _accountGroupCollection
-        .where('name', isEqualTo: accountGroupName)
+        .where("name", isEqualTo: accountGroupName)
         .get();
 
     return snapshot.docs.firstOrNull?.data();
@@ -147,7 +147,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
     List<String> accountIds,
   ) async {
     var snapshot = await _accountGroupCollection
-        .where('account_ids', arrayContainsAny: accountIds)
+        .where("account_ids", arrayContainsAny: accountIds)
         .get();
 
     return snapshot.docs.map((s) => s.data()).toList();
@@ -188,7 +188,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   @override
   Future<PermissionModel?> getPermissionByName(String permissionName) async {
     var snapshot = await _permissionCollection
-        .where('name', isEqualTo: permissionName)
+        .where("name", isEqualTo: permissionName)
         .get();
 
     return snapshot.docs.firstOrNull?.data();
@@ -236,7 +236,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
     String permissionGroupName,
   ) async {
     var snapshot = await _permissionGroupCollection
-        .where('name', isEqualTo: permissionGroupName)
+        .where("name", isEqualTo: permissionGroupName)
         .get();
 
     return snapshot.docs.firstOrNull?.data();
@@ -247,7 +247,7 @@ class FirebaseRbacDatasource implements RbacDataInterface {
     List<String> permissionIds,
   ) async {
     var snapshot = await _permissionGroupCollection
-        .where('permission_ids', arrayContainsAny: permissionIds)
+        .where("permission_ids", arrayContainsAny: permissionIds)
         .get();
 
     return snapshot.docs.map((s) => s.data()).toList();
@@ -302,49 +302,49 @@ class FirebaseRbacDatasource implements RbacDataInterface {
     Query<RoleAssignmentModel>? target;
 
     if (objectId != null) {
-      target = _assignmentCollection.where('object_id', isEqualTo: objectId);
+      target = _assignmentCollection.where("object_id", isEqualTo: objectId);
     }
 
     if (accountId != null) {
       if (target == null) {
         target =
-            _assignmentCollection.where('account_id', isEqualTo: accountId);
+            _assignmentCollection.where("account_id", isEqualTo: accountId);
       } else {
-        target = target.where('account_id', isEqualTo: accountId);
+        target = target.where("account_id", isEqualTo: accountId);
       }
     }
 
     if (accountGroupId != null) {
       if (target == null) {
         target = _assignmentCollection.where(
-          'account_group_id',
+          "account_group_id",
           isEqualTo: accountGroupId,
         );
       } else {
-        target = target.where('account_group_id', isEqualTo: accountGroupId);
+        target = target.where("account_group_id", isEqualTo: accountGroupId);
       }
     }
 
     if (permissionId != null) {
       if (target == null) {
         target = _assignmentCollection.where(
-          'permission_id',
+          "permission_id",
           isEqualTo: permissionId,
         );
       } else {
-        target = target.where('permission_id', isEqualTo: permissionId);
+        target = target.where("permission_id", isEqualTo: permissionId);
       }
     }
 
     if (permissionGroupId != null) {
       if (target == null) {
         target = _assignmentCollection.where(
-          'permission_group_id',
+          "permission_group_id",
           isEqualTo: permissionGroupId,
         );
       } else {
         target =
-            target.where('permission_group_id', isEqualTo: permissionGroupId);
+            target.where("permission_group_id", isEqualTo: permissionGroupId);
       }
     }
 

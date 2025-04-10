@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/widgets/block_header.dart';
-import 'package:flutter_rbac_view/src/widgets/primary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/secondary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/widgets/block_header.dart";
+import "package:flutter_rbac_view/src/widgets/primary_button.dart";
+import "package:flutter_rbac_view/src/widgets/secondary_button.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
 
 class CreateLinkAccountTable extends StatefulWidget {
   const CreateLinkAccountTable({
@@ -73,9 +73,9 @@ class _CreateLinkAccountTableState extends State<CreateLinkAccountTable> {
                 width: 8,
               ),
               const Text(
-                'Create link',
+                "Create link",
                 style: TextStyle(
-                  fontFamily: 'Avenir',
+                  fontFamily: "Avenir",
                   fontWeight: FontWeight.w800,
                   fontSize: 32,
                   color: Color(0xFF212121),
@@ -86,7 +86,7 @@ class _CreateLinkAccountTableState extends State<CreateLinkAccountTable> {
               ),
               const Spacer(),
               SecondaryButton(
-                text: 'Cancel',
+                text: "Cancel",
                 onPressed: () async {
                   setState(() {
                     accountIds = {};
@@ -98,7 +98,7 @@ class _CreateLinkAccountTableState extends State<CreateLinkAccountTable> {
                 width: 8,
               ),
               PrimaryButton(
-                text: 'Save',
+                text: "Save",
                 onPressed: () async {
                   widget.onSave(accountIds, accountGroupIds);
                 },
@@ -110,7 +110,7 @@ class _CreateLinkAccountTableState extends State<CreateLinkAccountTable> {
             height: 20,
           ),
           const BlockHeader(
-            titles: [('EMAIL ADDRESS/GROUP NAME', 1), ('ID', 1)],
+            titles: [("EMAIL ADDRESS/GROUP NAME", 1), ("ID", 1)],
             trailingIcon: Icon(
               Icons.add,
               color: Colors.white,
@@ -176,7 +176,7 @@ class _CreateLinkAccountTableState extends State<CreateLinkAccountTable> {
                         Expanded(
                           child: ListItem(
                             data: [
-                              ('Group: ${allAccountGroups[i].name}', 1),
+                              ("Group: ${allAccountGroups[i].name}", 1),
                               (allAccountGroups[i].id, 1),
                               (null, 1),
                             ],
@@ -218,7 +218,7 @@ class _CreateLinkAccountTableState extends State<CreateLinkAccountTable> {
                         Expanded(
                           child: ListItem(
                             data: [
-                              (allAccounts[i].email ?? 'Unknown', 1),
+                              (allAccounts[i].email ?? "Unknown", 1),
                               (allAccounts[i].id, 1),
                               (null, 1),
                             ],

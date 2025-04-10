@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/flutter_rbac_view.dart';
-import 'package:flutter_rbac_view/src/routes.dart';
-import 'package:go_router/go_router.dart';
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/flutter_rbac_view.dart";
+import "package:flutter_rbac_view/src/routes.dart";
+import "package:go_router/go_router.dart";
 
 /// Returns a list of GoRouter routes for the RBAC management view.
 List<GoRoute> getRbacViewRoutes({
@@ -47,7 +47,7 @@ List<GoRoute> getRbacViewRoutes({
       ),
     ),
     GoRoute(
-      path: '${RbacRoutes.accountOverview}/:accountId',
+      path: "${RbacRoutes.accountOverview}/:accountId",
       builder: (context, state) => AccountDetailScreen(
         rbacService: service,
         onQuit: () {
@@ -81,7 +81,7 @@ List<GoRoute> getRbacViewRoutes({
 
           await context.push(RbacRoutes.createLink);
         },
-        accountId: state.pathParameters['accountId'] ?? '',
+        accountId: state.pathParameters["accountId"] ?? "",
         onBack: () {
           if (context.canPop()) {
             context.pop();
@@ -92,7 +92,7 @@ List<GoRoute> getRbacViewRoutes({
       ),
     ),
     GoRoute(
-      path: '${RbacRoutes.accountOverview}/group/:groupId',
+      path: "${RbacRoutes.accountOverview}/group/:groupId",
       builder: (context, state) => AccountGroupScreen(
         rbacService: service,
         onQuit: () {
@@ -126,7 +126,7 @@ List<GoRoute> getRbacViewRoutes({
 
           await context.push(RbacRoutes.createLink);
         },
-        accountGroupId: state.pathParameters['groupId'] ?? '',
+        accountGroupId: state.pathParameters["groupId"] ?? "",
         onBack: () {
           if (context.canPop()) {
             context.pop();
@@ -178,7 +178,7 @@ List<GoRoute> getRbacViewRoutes({
       ),
     ),
     GoRoute(
-      path: '${RbacRoutes.objectOverview}/:objectId',
+      path: "${RbacRoutes.objectOverview}/:objectId",
       builder: (context, state) => ObjectDetailScreen(
         rbacService: service,
         onQuit: () {
@@ -212,7 +212,7 @@ List<GoRoute> getRbacViewRoutes({
 
           await context.push(RbacRoutes.createLink);
         },
-        objectId: state.pathParameters['objectId'] ?? '',
+        objectId: state.pathParameters["objectId"] ?? "",
         onBack: () {
           if (context.canPop()) {
             context.pop();

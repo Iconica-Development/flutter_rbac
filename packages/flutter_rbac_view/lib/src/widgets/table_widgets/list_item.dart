@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class ListItem extends StatelessWidget {
   const ListItem({
@@ -52,7 +52,7 @@ class ListItem extends StatelessWidget {
                             child: Text(
                               d.$1!,
                               style: const TextStyle(
-                                fontFamily: 'Avenir',
+                                fontFamily: "Avenir",
                                 fontWeight: FontWeight.w300,
                                 fontSize: 16,
                               ),

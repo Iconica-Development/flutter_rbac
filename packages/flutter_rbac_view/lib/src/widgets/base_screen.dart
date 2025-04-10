@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_menu/flutter_menu.dart';
+import "package:flutter/material.dart";
+import "package:flutter_menu/flutter_menu.dart";
 
 class BaseScreen extends StatelessWidget {
   const BaseScreen({
@@ -55,9 +55,9 @@ class BaseScreen extends StatelessWidget {
                             width: 16,
                           ),
                           Text(
-                            'Close',
+                            "Close",
                             style: TextStyle(
-                              fontFamily: 'Avenir',
+                              fontFamily: "Avenir",
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
                               color: Colors.white,
@@ -79,12 +79,12 @@ class BaseScreen extends StatelessWidget {
                             bottom: 6,
                           ),
                           child: Text(
-                            '_rbac',
+                            "_rbac",
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 32,
                               color: Color(0xFFFFFFFF),
-                              fontFamily: 'Avenir',
+                              fontFamily: "Avenir",
                             ),
                           ),
                         ),
@@ -92,25 +92,25 @@ class BaseScreen extends StatelessWidget {
                     ),
                     MenuAction.divider(),
                     getMenuAction(
-                      title: 'Accounts',
+                      title: "Accounts",
                       onTap: onTapAccounts,
                       icon: Icons.person_2_outlined,
                     ),
                     MenuAction.divider(),
                     getMenuAction(
-                      title: 'Permissions',
+                      title: "Permissions",
                       onTap: onTapPermissions,
                       icon: Icons.check,
                     ),
                     MenuAction.divider(),
                     getMenuAction(
-                      title: 'Objects',
+                      title: "Objects",
                       onTap: onTapObjects,
                       icon: Icons.list,
                     ),
                     MenuAction.divider(),
                     getMenuAction(
-                      title: 'Create link',
+                      title: "Create link",
                       onTap: onTapCreateLink,
                       icon: Icons.link,
                       enableChevron: false,
@@ -159,7 +159,7 @@ class BaseScreen extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: Color(0xFFFFFFFF),
-                      fontFamily: 'Avenir',
+                      fontFamily: "Avenir",
                     ),
                   ),
                   const Spacer(),

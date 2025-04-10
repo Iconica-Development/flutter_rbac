@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/widgets/dialogs/name_dialog.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/rbac_data_table.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/widgets/dialogs/name_dialog.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/rbac_data_table.dart";
 
 class ObjectTable extends StatefulWidget {
   const ObjectTable({
@@ -41,8 +41,8 @@ class _ObjectTableState extends State<ObjectTable> {
   Widget build(BuildContext context) => FutureBuilder(
         future: dataFuture,
         builder: (context, snapshot) => RbacDataTable<SecurableObjectModel>(
-          title: 'Securable objects',
-          tableTitle: 'SECURED OBJECTS',
+          title: "Securable objects",
+          tableTitle: "SECURED OBJECTS",
           items: snapshot.data,
           onTapRefresh: () {
             setState(() {
@@ -51,12 +51,12 @@ class _ObjectTableState extends State<ObjectTable> {
             });
           },
           rowAmount: 15,
-          titleButtonText: 'Create secured object',
+          titleButtonText: "Create secured object",
           titleButtonOnTap: () async {
             await showDialog(
               context: context,
               builder: (context) => NameDialog(
-                title: 'Name your secured object',
+                title: "Name your secured object",
                 onSuccesfullCommit: (name) async {
                   await widget.rbacService.createSecurableObject(name);
 

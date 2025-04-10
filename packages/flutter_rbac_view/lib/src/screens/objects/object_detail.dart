@@ -4,18 +4,18 @@
 
 // ignore_for_file: lines_longer_than_80_chars
 
-import 'dart:async';
+import "dart:async";
 
 // ignore: depend_on_referenced_packages
-import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/widgets/base_screen.dart';
-import 'package:flutter_rbac_view/src/widgets/block_header.dart';
-import 'package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart';
-import 'package:flutter_rbac_view/src/widgets/secondary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
+import "package:collection/collection.dart";
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/widgets/base_screen.dart";
+import "package:flutter_rbac_view/src/widgets/block_header.dart";
+import "package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart";
+import "package:flutter_rbac_view/src/widgets/secondary_button.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
 
 class ObjectDetailScreen extends StatefulWidget {
   const ObjectDetailScreen({
@@ -30,7 +30,7 @@ class ObjectDetailScreen extends StatefulWidget {
     super.key,
   });
 
-  static const String route = 'ObjectDetailScreen';
+  static const String route = "ObjectDetailScreen";
 
   final RbacService rbacService;
   final String objectId;
@@ -207,9 +207,9 @@ class _ObjectDetailScreenState extends State<ObjectDetailScreen> {
                       width: 8,
                     ),
                     const Text(
-                      'Edit secured object',
+                      "Edit secured object",
                       style: TextStyle(
-                        fontFamily: 'Avenir',
+                        fontFamily: "Avenir",
                         fontWeight: FontWeight.w800,
                         fontSize: 32,
                         color: Color(0xFF212121),
@@ -227,7 +227,7 @@ class _ObjectDetailScreenState extends State<ObjectDetailScreen> {
                           widget.onBack();
                         }
                       },
-                      text: 'Delete',
+                      text: "Delete",
                     ),
                   ],
                 ),
@@ -293,7 +293,7 @@ class _ObjectDetailScreenState extends State<ObjectDetailScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               const BlockHeader(
-                                titles: [('SECURED OBJECT', 1)],
+                                titles: [("SECURED OBJECT", 1)],
                               ),
                               const SizedBox(
                                 height: 8,
@@ -310,9 +310,9 @@ class _ObjectDetailScreenState extends State<ObjectDetailScreen> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      object?.name ?? 'Name',
+                                      object?.name ?? "Name",
                                       style: const TextStyle(
-                                        fontFamily: 'Avenir',
+                                        fontFamily: "Avenir",
                                         fontWeight: FontWeight.w300,
                                         fontSize: 16,
                                         color: Colors.black,
@@ -332,7 +332,7 @@ class _ObjectDetailScreenState extends State<ObjectDetailScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               const BlockHeader(
-                                titles: [('PERMISSIONS', 1)],
+                                titles: [("PERMISSIONS", 1)],
                                 trailingIcon: Icon(
                                   Icons.add,
                                   color: Colors.white,
@@ -432,7 +432,7 @@ class _ObjectDetailScreenState extends State<ObjectDetailScreen> {
                                             .$1
                                             .$2
                                             .map((p) => p.name)
-                                            .join(' + '),
+                                            .join(" + "),
                                         3
                                       ),
                                     ],
@@ -535,7 +535,7 @@ class _ObjectDetailScreenState extends State<ObjectDetailScreen> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const BlockHeader(
-                                      titles: [('ACCOUNTS', 1), ('TYPE', 1)],
+                                      titles: [("ACCOUNTS", 1), ("TYPE", 1)],
                                       trailingIcon: Icon(
                                         Icons.add,
                                         color: Colors.white,
@@ -547,7 +547,7 @@ class _ObjectDetailScreenState extends State<ObjectDetailScreen> {
                                     for (var account in accounts) ...[
                                       ListItem(
                                         data: [
-                                          (account.$1.email ?? 'Unknown', 1),
+                                          (account.$1.email ?? "Unknown", 1),
                                           (account.$2?.name, 1),
                                         ],
                                         trailingIcon: IconButton(

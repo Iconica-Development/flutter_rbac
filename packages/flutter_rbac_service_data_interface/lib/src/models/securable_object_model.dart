@@ -14,14 +14,14 @@ class SecurableObjectModel {
   ) =>
       SecurableObjectModel(
         id: id,
-        name: map['name'] ?? '',
+        name: map["name"] ?? "",
       );
 
   final String id;
   final String name;
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'name': name,
+        "name": name,
       };
 
   SecurableObjectModel copyWith({

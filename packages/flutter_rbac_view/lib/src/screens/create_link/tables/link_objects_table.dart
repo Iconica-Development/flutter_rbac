@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/widgets/block_header.dart';
-import 'package:flutter_rbac_view/src/widgets/primary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/secondary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/widgets/block_header.dart";
+import "package:flutter_rbac_view/src/widgets/primary_button.dart";
+import "package:flutter_rbac_view/src/widgets/secondary_button.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
 
 class CreateLinkObjectTable extends StatefulWidget {
   const CreateLinkObjectTable({
@@ -67,9 +67,9 @@ class _CreateLinkObjectTableState extends State<CreateLinkObjectTable> {
                 width: 8,
               ),
               const Text(
-                'Create link',
+                "Create link",
                 style: TextStyle(
-                  fontFamily: 'Avenir',
+                  fontFamily: "Avenir",
                   fontWeight: FontWeight.w800,
                   fontSize: 32,
                   color: Color(0xFF212121),
@@ -80,7 +80,7 @@ class _CreateLinkObjectTableState extends State<CreateLinkObjectTable> {
               ),
               const Spacer(),
               SecondaryButton(
-                text: objectIds.isEmpty ? 'Previous' : 'Cancel',
+                text: objectIds.isEmpty ? "Previous" : "Cancel",
                 onPressed: () async {
                   if (objectIds.isEmpty) {
                     widget.onBack();
@@ -95,7 +95,7 @@ class _CreateLinkObjectTableState extends State<CreateLinkObjectTable> {
                 width: 8,
               ),
               PrimaryButton(
-                text: 'Save',
+                text: "Save",
                 onPressed: () async {
                   widget.onSave(objectIds);
                 },
@@ -107,7 +107,7 @@ class _CreateLinkObjectTableState extends State<CreateLinkObjectTable> {
             height: 20,
           ),
           const BlockHeader(
-            titles: [('Name', 1), ('ID', 2)],
+            titles: [("Name", 1), ("ID", 2)],
             trailingIcon: Icon(
               Icons.add,
               color: Colors.white,

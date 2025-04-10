@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/widgets/base_screen.dart';
-import 'package:flutter_rbac_view/src/widgets/block_header.dart';
-import 'package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/widgets/base_screen.dart";
+import "package:flutter_rbac_view/src/widgets/block_header.dart";
+import "package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
 
 class AccountDetailScreen extends StatefulWidget {
   const AccountDetailScreen({
@@ -23,7 +23,7 @@ class AccountDetailScreen extends StatefulWidget {
     super.key,
   });
 
-  static const String route = 'AccountDetailScreen';
+  static const String route = "AccountDetailScreen";
 
   final RbacService rbacService;
   final String accountId;
@@ -159,9 +159,9 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                       width: 8,
                     ),
                     const Text(
-                      'Edit account',
+                      "Edit account",
                       style: TextStyle(
-                        fontFamily: 'Avenir',
+                        fontFamily: "Avenir",
                         fontWeight: FontWeight.w800,
                         fontSize: 32,
                         color: Color(0xFF212121),
@@ -208,7 +208,7 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               const BlockHeader(
-                                titles: [('ACCOUNT', 1)],
+                                titles: [("ACCOUNT", 1)],
                               ),
                               const SizedBox(
                                 height: 8,
@@ -227,18 +227,18 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      account?.email ?? 'Email',
+                                      account?.email ?? "Email",
                                       style: const TextStyle(
-                                        fontFamily: 'Avenir',
+                                        fontFamily: "Avenir",
                                         fontWeight: FontWeight.w300,
                                         fontSize: 16,
                                         color: Colors.black,
                                       ),
                                     ),
                                     Text(
-                                      account?.id ?? 'ID',
+                                      account?.id ?? "ID",
                                       style: const TextStyle(
-                                        fontFamily: 'Avenir',
+                                        fontFamily: "Avenir",
                                         fontWeight: FontWeight.w300,
                                         fontSize: 16,
                                         color: Colors.black,
@@ -259,9 +259,9 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                             children: [
                               const BlockHeader(
                                 titles: [
-                                  ('SECURED OBJECTS', 1),
-                                  ('PERMISSIONS', 2),
-                                  ('ACCOUNT GROUP', 1),
+                                  ("SECURED OBJECTS", 1),
+                                  ("PERMISSIONS", 2),
+                                  ("ACCOUNT GROUP", 1),
                                 ],
                                 trailingIcon: Icon(
                                   Icons.add,
@@ -275,12 +275,12 @@ class _AccountDetailScreenState extends State<AccountDetailScreen> {
                                 for (var i = 0; i < objects.length; i++) ...[
                                   ListItem(
                                     data: [
-                                      (objects[i]?.name ?? 'Unknown', 1),
+                                      (objects[i]?.name ?? "Unknown", 1),
                                       (
                                         permissions[i]
                                             .$1
                                             .map((p) => p.name)
-                                            .join(' + '),
+                                            .join(" + "),
                                         2
                                       ),
                                       (permissions[i].$2?.name, 1),

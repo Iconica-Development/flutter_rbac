@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class PaginationButtons extends StatelessWidget {
   const PaginationButtons({
@@ -117,9 +117,9 @@ class _PaginationButton extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              '$pageNumber',
+              "$pageNumber",
               style: theme.textTheme.bodySmall?.copyWith(
-                fontFamily: 'OpenSans',
+                fontFamily: "OpenSans",
                 color: Colors.white,
                 fontWeight: FontWeight.w400,
               ),

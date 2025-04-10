@@ -12,9 +12,9 @@ class PermissionGroupModel {
   factory PermissionGroupModel.fromMap(String id, Map<String, dynamic> map) =>
       PermissionGroupModel(
         id: id,
-        name: map['name'],
+        name: map["name"],
         permissionIds:
-            (map['permission_ids'] as List<dynamic>?)?.cast<String>().toSet() ??
+            (map["permission_ids"] as List<dynamic>?)?.cast<String>().toSet() ??
                 {},
       );
 
@@ -23,8 +23,8 @@ class PermissionGroupModel {
   final Set<String> permissionIds;
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'name': name,
-        'permission_ids': permissionIds,
+        "name": name,
+        "permission_ids": permissionIds,
       };
 
   PermissionGroupModel copyWith({

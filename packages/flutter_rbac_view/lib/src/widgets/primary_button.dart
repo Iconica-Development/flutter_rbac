@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
@@ -51,7 +51,7 @@ class PrimaryButton extends StatelessWidget {
             Text(
               text,
               style: TextStyle(
-                fontFamily: 'Avenir',
+                fontFamily: "Avenir",
                 fontWeight: FontWeight.w800,
                 fontSize: 20,
                 color: enabled ? Colors.white : const Color(0xFFFDFCFB),

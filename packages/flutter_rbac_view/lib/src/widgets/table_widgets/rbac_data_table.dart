@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_view/src/widgets/block_header.dart';
-import 'package:flutter_rbac_view/src/widgets/primary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/pagination_buttons.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_view/src/widgets/block_header.dart";
+import "package:flutter_rbac_view/src/widgets/primary_button.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/pagination_buttons.dart";
 
 class RbacDataTable<T> extends StatefulWidget {
   const RbacDataTable({
@@ -35,7 +35,7 @@ class RbacDataTable<T> extends StatefulWidget {
 }
 
 class _RbacDataTableState extends State<RbacDataTable> {
-  var selectedPage = 0;
+  int selectedPage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class _RbacDataTableState extends State<RbacDataTable> {
             Text(
               widget.title,
               style: const TextStyle(
-                fontFamily: 'Avenir',
+                fontFamily: "Avenir",
                 fontWeight: FontWeight.w800,
                 fontSize: 32,
               ),

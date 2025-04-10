@@ -28,7 +28,7 @@ dev_dependencies:
     sdk: flutter
   flutter_iconica_analysis:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
-    version: ^6.0.0
+    version: ^7.0.0
 
 flutter:
   fonts:

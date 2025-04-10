@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_view/src/models/selectable_dialog_item.dart';
-import 'package:flutter_rbac_view/src/widgets/primary_button.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_view/src/models/selectable_dialog_item.dart";
+import "package:flutter_rbac_view/src/widgets/primary_button.dart";
 
 class SelectDialog extends StatefulWidget {
   const SelectDialog({
@@ -25,7 +25,7 @@ class SelectDialog extends StatefulWidget {
 class _SelectDialogState extends State<SelectDialog> {
   Set<String> selectedIds = {};
 
-  var loading = false;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) => AlertDialog(
@@ -44,7 +44,7 @@ class _SelectDialogState extends State<SelectDialog> {
             Text(
               widget.title,
               style: const TextStyle(
-                fontFamily: 'Avenir',
+                fontFamily: "Avenir",
                 fontWeight: FontWeight.w800,
                 fontSize: 18,
                 color: Color(0xFF212121),
@@ -98,7 +98,7 @@ class _SelectDialogState extends State<SelectDialog> {
                       child: Text(
                         item.title,
                         style: const TextStyle(
-                          fontFamily: 'Avenir',
+                          fontFamily: "Avenir",
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                           color: Color(
@@ -127,7 +127,7 @@ class _SelectDialogState extends State<SelectDialog> {
                   if (context.mounted) Navigator.of(context).pop(selectedIds);
                 }
               },
-              text: 'Save',
+              text: "Save",
             ),
             const SizedBox(
               height: 8,
@@ -139,9 +139,9 @@ class _SelectDialogState extends State<SelectDialog> {
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 32, vertical: 4),
                 child: Text(
-                  'Cancel',
+                  "Cancel",
                   style: TextStyle(
-                    fontFamily: 'Avenir',
+                    fontFamily: "Avenir",
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                     color: Color(0xFF8D8D8D),

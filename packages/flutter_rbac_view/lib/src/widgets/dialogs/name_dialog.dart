@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_view/src/widgets/primary_button.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_view/src/widgets/primary_button.dart";
 
 class NameDialog extends StatefulWidget {
   const NameDialog({
@@ -20,10 +20,10 @@ class NameDialog extends StatefulWidget {
 }
 
 class _NameDialogState extends State<NameDialog> {
-  var formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? input;
 
-  var loading = false;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) => AlertDialog(
@@ -44,7 +44,7 @@ class _NameDialogState extends State<NameDialog> {
               Text(
                 widget.title,
                 style: const TextStyle(
-                  fontFamily: 'Avenir',
+                  fontFamily: "Avenir",
                   fontWeight: FontWeight.w800,
                   fontSize: 18,
                   color: Color(0xFF212121),
@@ -57,15 +57,15 @@ class _NameDialogState extends State<NameDialog> {
                 width: 300,
                 child: TextFormField(
                   style: const TextStyle(
-                    fontFamily: 'Avenir',
+                    fontFamily: "Avenir",
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
                     color: Color(0xFF212121),
                   ),
                   decoration: const InputDecoration(
-                    hintText: 'Input',
+                    hintText: "Input",
                     hintStyle: TextStyle(
-                      fontFamily: 'Avenir',
+                      fontFamily: "Avenir",
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
                       color: Color(0xFF8D8D8D),
@@ -76,7 +76,7 @@ class _NameDialogState extends State<NameDialog> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Input can not be empty';
+                      return "Input can not be empty";
                     }
 
                     return null;
@@ -105,7 +105,7 @@ class _NameDialogState extends State<NameDialog> {
                     }
                   }
                 },
-                text: 'Save',
+                text: "Save",
               ),
               const SizedBox(
                 height: 8,
@@ -117,9 +117,9 @@ class _NameDialogState extends State<NameDialog> {
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 32, vertical: 4),
                   child: Text(
-                    'Cancel',
+                    "Cancel",
                     style: TextStyle(
-                      fontFamily: 'Avenir',
+                      fontFamily: "Avenir",
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
                       color: Color(0xFF8D8D8D),

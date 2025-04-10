@@ -2,16 +2,16 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/widgets/base_screen.dart';
-import 'package:flutter_rbac_view/src/widgets/block_header.dart';
-import 'package:flutter_rbac_view/src/widgets/dialogs/name_dialog.dart';
-import 'package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart';
-import 'package:flutter_rbac_view/src/widgets/primary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/secondary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/widgets/base_screen.dart";
+import "package:flutter_rbac_view/src/widgets/block_header.dart";
+import "package:flutter_rbac_view/src/widgets/dialogs/name_dialog.dart";
+import "package:flutter_rbac_view/src/widgets/dialogs/sure_dialog.dart";
+import "package:flutter_rbac_view/src/widgets/primary_button.dart";
+import "package:flutter_rbac_view/src/widgets/secondary_button.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
 
 class AccountGroupScreen extends StatefulWidget {
   const AccountGroupScreen({
@@ -26,7 +26,7 @@ class AccountGroupScreen extends StatefulWidget {
     super.key,
   });
 
-  static const String route = 'AccountGroupScreen';
+  static const String route = "AccountGroupScreen";
 
   final RbacService rbacService;
   final String accountGroupId;
@@ -101,7 +101,7 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
 
               if (accountGroup == null || allAccounts == null) {
                 return const Center(
-                  child: Text('Something went wrong'),
+                  child: Text("Something went wrong"),
                 );
               }
 
@@ -127,7 +127,7 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                           Text(
                             accountGroup.name,
                             style: const TextStyle(
-                              fontFamily: 'Avenir',
+                              fontFamily: "Avenir",
                               fontWeight: FontWeight.w800,
                               fontSize: 32,
                               color: Color(0xFF212121),
@@ -141,7 +141,7 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                               await showDialog(
                                 context: context,
                                 builder: (context) => NameDialog(
-                                  title: 'Name your account group',
+                                  title: "Name your account group",
                                   onSuccesfullCommit: (name) async {
                                     await widget.rbacService.updateAccountGroup(
                                       accountGroup.id,
@@ -188,9 +188,9 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                                   width: 8,
                                 ),
                                 Text(
-                                  'Edit name',
+                                  "Edit name",
                                   style: TextStyle(
-                                    fontFamily: 'Avenir',
+                                    fontFamily: "Avenir",
                                     fontWeight: FontWeight.w800,
                                     fontSize: 14,
                                     color: Colors.black,
@@ -201,7 +201,7 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                           ),
                           const Spacer(),
                           SecondaryButton(
-                            text: 'Delete',
+                            text: "Delete",
                             onPressed: () async {
                               if (await showSureDialog(context)) {
                                 await widget.rbacService
@@ -215,7 +215,7 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                             width: 8,
                           ),
                           SecondaryButton(
-                            text: 'Cancel',
+                            text: "Cancel",
                             onPressed: () {
                               setState(() {
                                 accountIds = accountGroup.accountIds;
@@ -226,7 +226,7 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                             width: 8,
                           ),
                           PrimaryButton(
-                            text: 'Save',
+                            text: "Save",
                             onPressed: () async {
                               await widget.rbacService.updateAccountGroup(
                                 accountGroup.id,
@@ -250,7 +250,7 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                         height: 20,
                       ),
                       const BlockHeader(
-                        titles: [('EMAIL ADDRESS', 1), ('ID', 1)],
+                        titles: [("EMAIL ADDRESS", 1), ("ID", 1)],
                         trailingIcon: Icon(
                           Icons.add,
                           color: Colors.white,
@@ -292,7 +292,7 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                             Expanded(
                               child: ListItem(
                                 data: [
-                                  (allAccounts[i].email ?? 'Unknown', 1),
+                                  (allAccounts[i].email ?? "Unknown", 1),
                                   (allAccounts[i].id, 1),
                                 ],
                                 rightPadding: 52,

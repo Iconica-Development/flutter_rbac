@@ -2,13 +2,13 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/widgets/block_header.dart';
-import 'package:flutter_rbac_view/src/widgets/primary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/secondary_button.dart';
-import 'package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/widgets/block_header.dart";
+import "package:flutter_rbac_view/src/widgets/primary_button.dart";
+import "package:flutter_rbac_view/src/widgets/secondary_button.dart";
+import "package:flutter_rbac_view/src/widgets/table_widgets/list_item.dart";
 
 class CreateLinkPermissionTable extends StatefulWidget {
   const CreateLinkPermissionTable({
@@ -74,9 +74,9 @@ class _CreateLinkPermissionTableState extends State<CreateLinkPermissionTable> {
                 width: 8,
               ),
               const Text(
-                'Create link',
+                "Create link",
                 style: TextStyle(
-                  fontFamily: 'Avenir',
+                  fontFamily: "Avenir",
                   fontWeight: FontWeight.w800,
                   fontSize: 32,
                   color: Color(0xFF212121),
@@ -88,8 +88,8 @@ class _CreateLinkPermissionTableState extends State<CreateLinkPermissionTable> {
               const Spacer(),
               SecondaryButton(
                 text: permissionIds.isEmpty && permissionGroupIds.isEmpty
-                    ? 'Previous'
-                    : 'Cancel',
+                    ? "Previous"
+                    : "Cancel",
                 onPressed: () async {
                   if (permissionIds.isEmpty && permissionGroupIds.isEmpty) {
                     widget.onBack();
@@ -105,7 +105,7 @@ class _CreateLinkPermissionTableState extends State<CreateLinkPermissionTable> {
                 width: 8,
               ),
               PrimaryButton(
-                text: 'Save',
+                text: "Save",
                 onPressed: () async {
                   widget.onSave(permissionIds, permissionGroupIds);
                 },
@@ -118,7 +118,7 @@ class _CreateLinkPermissionTableState extends State<CreateLinkPermissionTable> {
             height: 20,
           ),
           const BlockHeader(
-            titles: [('GROUP NAME', 1), ('PERMISSION(S)', 2), ('ID', 2)],
+            titles: [("GROUP NAME", 1), ("PERMISSION(S)", 2), ("ID", 2)],
             trailingIcon: Icon(
               Icons.add,
               color: Colors.white,
@@ -197,7 +197,7 @@ class _CreateLinkPermissionTableState extends State<CreateLinkPermissionTable> {
                                 allPermissionGroups[i]
                                     .permissionIds
                                     .map((pId) => allPermissionsMap[pId]?.name)
-                                    .join(' + '),
+                                    .join(" + "),
                                 2
                               ),
                               (allPermissionGroups[i].id, 2),

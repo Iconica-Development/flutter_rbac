@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'dart:async';
+import "dart:async";
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/flutter_rbac_view.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/flutter_rbac_view.dart";
 
 /// A screen widget for managing Role-Based Access Control (RBAC).
 class RbacScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ class RbacScreen extends StatefulWidget {
 }
 
 class _RbacScreenState extends State<RbacScreen> {
-  late var rbacService =
+  late RbacService rbacService =
       widget.rbacService ?? RbacService(dataInterface: LocalRbacDatasource());
 
   Future<void> navigate(BuildContext context, String currentRoute) async {

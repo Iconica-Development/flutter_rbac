@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/screens/objects/tables/object_table.dart';
-import 'package:flutter_rbac_view/src/widgets/base_screen.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/screens/objects/tables/object_table.dart";
+import "package:flutter_rbac_view/src/widgets/base_screen.dart";
 
 class ObjectOverviewScreen extends StatefulWidget {
   const ObjectOverviewScreen({
@@ -20,7 +20,7 @@ class ObjectOverviewScreen extends StatefulWidget {
     super.key,
   });
 
-  static const String route = 'ObjectOverviewScreen';
+  static const String route = "ObjectOverviewScreen";
 
   final RbacService rbacService;
 

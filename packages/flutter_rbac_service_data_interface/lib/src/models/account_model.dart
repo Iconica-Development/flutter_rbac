@@ -11,14 +11,14 @@ class AccountModel {
   factory AccountModel.fromMap(String id, Map<String, dynamic> map) =>
       AccountModel(
         id: id,
-        email: map['email'],
+        email: map["email"],
       );
 
   final String id;
   final String? email;
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'email': email,
+        "email": email,
       };
 
   AccountModel copyWith({

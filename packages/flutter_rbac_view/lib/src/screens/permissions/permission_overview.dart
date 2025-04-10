@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import 'package:flutter/material.dart';
-import 'package:flutter_rbac_service/flutter_rbac_service.dart';
-import 'package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart';
-import 'package:flutter_rbac_view/src/screens/permissions/tables/permission_group_table.dart';
-import 'package:flutter_rbac_view/src/screens/permissions/tables/permission_table.dart';
-import 'package:flutter_rbac_view/src/widgets/base_screen.dart';
+import "package:flutter/material.dart";
+import "package:flutter_rbac_service/flutter_rbac_service.dart";
+import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
+import "package:flutter_rbac_view/src/screens/permissions/tables/permission_group_table.dart";
+import "package:flutter_rbac_view/src/screens/permissions/tables/permission_table.dart";
+import "package:flutter_rbac_view/src/widgets/base_screen.dart";
 
 class PermissionOverviewScreen extends StatefulWidget {
   const PermissionOverviewScreen({
@@ -20,7 +20,7 @@ class PermissionOverviewScreen extends StatefulWidget {
     super.key,
   });
 
-  static const String route = 'PermissionOverviewScreen';
+  static const String route = "PermissionOverviewScreen";
 
   final RbacService rbacService;
 

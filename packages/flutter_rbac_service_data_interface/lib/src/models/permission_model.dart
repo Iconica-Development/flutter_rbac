@@ -10,14 +10,14 @@ class PermissionModel {
   factory PermissionModel.fromMap(String id, Map<String, dynamic> map) =>
       PermissionModel(
         id: id,
-        name: map['name'] ?? '',
+        name: map["name"] ?? "",
       );
 
   final String id;
   final String name;
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'name': name,
+        "name": name,
       };
 
   PermissionModel copyWith({
