@@ -2,9 +2,13 @@ pubspec_overrides.yaml
 
 .dart_tool
 .idea
+*.iml
 .vscode
 ios
 android
 web
 linux
 macos
+
+.flutter-plugins
+pubspec.lock

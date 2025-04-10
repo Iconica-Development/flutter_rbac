@@ -160,9 +160,9 @@ class _CreateLinkAccountTableState extends State<CreateLinkAccountTable> {
                               });
                             }
                           },
-                          fillColor: MaterialStateProperty.resolveWith(
+                          fillColor: WidgetStateProperty.resolveWith(
                             (states) {
-                              if (states.contains(MaterialState.selected)) {
+                              if (states.contains(WidgetState.selected)) {
                                 return Colors.black;
                               }
 
@@ -202,9 +202,9 @@ class _CreateLinkAccountTableState extends State<CreateLinkAccountTable> {
                               });
                             }
                           },
-                          fillColor: MaterialStateProperty.resolveWith(
+                          fillColor: WidgetStateProperty.resolveWith(
                             (states) {
-                              if (states.contains(MaterialState.selected)) {
+                              if (states.contains(WidgetState.selected)) {
                                 return Colors.black;
                               }
 

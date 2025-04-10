@@ -153,9 +153,9 @@ class _CreateLinkObjectTableState extends State<CreateLinkObjectTable> {
                               });
                             }
                           },
-                          fillColor: MaterialStateProperty.resolveWith(
+                          fillColor: WidgetStateProperty.resolveWith(
                             (states) {
-                              if (states.contains(MaterialState.selected)) {
+                              if (states.contains(WidgetState.selected)) {
                                 return Colors.black;
                               }
 

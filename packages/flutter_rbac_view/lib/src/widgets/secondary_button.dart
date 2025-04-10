@@ -18,19 +18,19 @@ class SecondaryButton extends StatelessWidget {
   Widget build(BuildContext context) => FilledButton(
         onPressed: onPressed,
         style: const ButtonStyle(
-          padding: MaterialStatePropertyAll(
+          padding: WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           ),
-          backgroundColor: MaterialStatePropertyAll(
+          backgroundColor: WidgetStatePropertyAll(
             Color(0xFFFAF9F7),
           ),
-          side: MaterialStatePropertyAll(
+          side: WidgetStatePropertyAll(
             BorderSide(
               color: Color(0xFF212121),
               width: 3,
             ),
           ),
-          shape: MaterialStatePropertyAll(
+          shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(6),

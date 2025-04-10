@@ -22,13 +22,13 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) => FilledButton(
         onPressed: enabled ? onPressed : null,
         style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(
+          backgroundColor: WidgetStatePropertyAll(
             enabled ? const Color(0xFF71C6D1) : const Color(0xFFB5DADF),
           ),
-          padding: const MaterialStatePropertyAll(
+          padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           ),
-          shape: const MaterialStatePropertyAll(
+          shape: const WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(4),

@@ -1,7 +1,8 @@
 name: flutter_rbac_view
 description: A new Flutter package project.
-version: 2.2.1
-publish_to: "none"
+version: 2.2.2
+publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
+
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -12,27 +13,22 @@ dependencies:
     sdk: flutter
   go_router: any  
   flutter_rbac_service_data_interface:
-    git:
-      url: https://github.com/Iconica-Development/flutter_rbac
-      path: packages/flutter_rbac_service_data_interface
-      ref: 2.2.1
+    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
+    version: ^2.2.2
   flutter_rbac_service:
-    git:
-      url: https://github.com/Iconica-Development/flutter_rbac
-      path: packages/flutter_rbac_service
-      ref: 2.2.1
+    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
+    version: ^2.2.2
   flutter_menu:
-    git:
-      url: https://github.com/Iconica-Development/flutter_menu.git
-      ref: 0.0.3
+    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
+    version: ^0.0.3
 
+  collection: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_iconica_analysis:
-    git:
-      url: https://github.com/Iconica-Development/flutter_iconica_analysis
-      ref: 6.0.0
+    hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
+    version: ^6.0.0
 
 flutter:
   fonts:

@@ -156,23 +156,23 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                               );
                             },
                             style: const ButtonStyle(
-                              padding: MaterialStatePropertyAll(
+                              padding: WidgetStatePropertyAll(
                                 EdgeInsets.symmetric(
                                   vertical: 0,
                                   horizontal: 8,
                                 ),
                               ),
-                              backgroundColor: MaterialStatePropertyAll(
+                              backgroundColor: WidgetStatePropertyAll(
                                 Color(0xFFFAF9F6),
                               ),
-                              shape: MaterialStatePropertyAll(
+                              shape: WidgetStatePropertyAll(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(6),
                                   ),
                                 ),
                               ),
-                              side: MaterialStatePropertyAll(
+                              side: WidgetStatePropertyAll(
                                 BorderSide(),
                               ),
                             ),
@@ -276,9 +276,9 @@ class _AccountGroupScreenState extends State<AccountGroupScreen> {
                                   });
                                 }
                               },
-                              fillColor: MaterialStateProperty.resolveWith(
+                              fillColor: WidgetStateProperty.resolveWith(
                                 (states) {
-                                  if (states.contains(MaterialState.selected)) {
+                                  if (states.contains(WidgetState.selected)) {
                                     return Colors.black;
                                   }
 

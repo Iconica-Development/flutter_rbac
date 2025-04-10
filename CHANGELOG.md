@@ -1,3 +1,8 @@
+## 2.2.2
+- Add workflow for publishing to forgejo
+- Replace MaterialState with WidgetState everywhere
+- Use hosted version of packages instead of git dependencies
+
 ## 2.2.1
 
 - Addition of example of the RBAC_view.

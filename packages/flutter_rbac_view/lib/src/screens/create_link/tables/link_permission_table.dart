@@ -176,9 +176,9 @@ class _CreateLinkPermissionTableState extends State<CreateLinkPermissionTable> {
                               });
                             }
                           },
-                          fillColor: MaterialStateProperty.resolveWith(
+                          fillColor: WidgetStateProperty.resolveWith(
                             (states) {
-                              if (states.contains(MaterialState.selected)) {
+                              if (states.contains(WidgetState.selected)) {
                                 return Colors.black;
                               }
 
@@ -224,9 +224,9 @@ class _CreateLinkPermissionTableState extends State<CreateLinkPermissionTable> {
                               });
                             }
                           },
-                          fillColor: MaterialStateProperty.resolveWith(
+                          fillColor: WidgetStateProperty.resolveWith(
                             (states) {
-                              if (states.contains(MaterialState.selected)) {
+                              if (states.contains(WidgetState.selected)) {
                                 return Colors.black;
                               }
 
