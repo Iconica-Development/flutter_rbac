@@ -137,6 +137,50 @@ class LocalRbacDatasource implements RbacDataInterface {
     accountGroupMap.remove(accountGroupId);
   }
 
+  @override
+  Stream<List<String>> getGroupChangesForAccount(String accountId) async* {
+    var groupIds = <String>{};
+
+    while (true) {
+      await Future.delayed(const Duration(seconds: 1));
+
+      var newGroupIds = <String>{};
+      for (var group in accountGroupMap.entries) {
+        if (group.value.accountIds.contains(accountId)) {
+          groupIds.add(group.value.name);
+        }
+      }
+
+      if (newGroupIds != groupIds) {
+        yield List<String>.from(groupIds);
+      }
+    }
+  }
+
+  @override
+  Stream<Map<String, List<String>>> getGroupChanges() async* {
+    var userGroups = <String, List<String>>{};
+
+    while (true) {
+      await Future.delayed(const Duration(seconds: 1));
+
+      var newUserGroups = <String, List<String>>{};
+      for (var group in accountGroupMap.entries) {
+        for (var accountId in group.value.accountIds) {
+          if (userGroups.containsKey(accountId)) {
+            userGroups[accountId]!.add(group.value.id);
+          } else {
+            userGroups[accountId] = [group.value.id];
+          }
+        }
+      }
+
+      if (newUserGroups != userGroups) {
+        yield newUserGroups;
+      }
+    }
+  }
+
   /////////////////////////// CRUD Permissions /////////////////////////////////
   @override
   Future<void> setPermission(PermissionModel permission) async =>

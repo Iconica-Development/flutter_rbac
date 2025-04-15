@@ -164,6 +164,43 @@ class FirebaseRbacDatasource implements RbacDataInterface {
   Future<void> deleteAccountGroup(String accountGroupId) async =>
       _accountGroupCollection.doc(accountGroupId).delete();
 
+  @override
+  Stream<List<String>> getGroupChangesForAccount(String accountId) =>
+      _accountGroupCollection
+          .where("account_ids", arrayContains: accountId)
+          .snapshots()
+          .map(
+        (event) {
+          var groupNames = <String>[];
+          for (var doc in event.docs) {
+            var data = doc.data();
+            groupNames.add(data.name);
+          }
+
+          return groupNames;
+        },
+      );
+
+  @override
+  Stream<Map<String, List<String>>> getGroupChanges() =>
+      _accountGroupCollection.snapshots().map(
+        (event) {
+          var userGroups = <String, List<String>>{};
+          for (var doc in event.docs) {
+            var data = doc.data();
+            for (var accountId in data.accountIds) {
+              if (userGroups.containsKey(accountId)) {
+                userGroups[accountId]!.add(data.id);
+              } else {
+                userGroups[accountId] = [data.id];
+              }
+            }
+          }
+
+          return userGroups;
+        },
+      );
+
   /////////////////////////// CRUD Permissions /////////////////////////////////
   late final _permissionCollection =
       FirebaseFirestore.instanceFor(app: firebaseApp)

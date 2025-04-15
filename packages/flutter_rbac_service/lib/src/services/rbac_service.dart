@@ -347,6 +347,22 @@ class RbacService {
     return deletedAssignments;
   }
 
+  /// Listens to role changes for a specified accountId.
+  ///
+  /// The stream contains a list of group names the accountId belongs to every
+  /// time it changes.
+  Stream<List<String>> getGroupChangesForAccount(
+    String accountId,
+  ) =>
+      _dataInterface.getGroupChangesForAccount(accountId).asBroadcastStream();
+
+  /// Listens to any role changes.
+  ///
+  /// The stream contains a map of accountIds with a list of group names that
+  /// accountId belongs to every time it changes.
+  Stream<Map<String, List<String>>> getGroupChanges() =>
+      _dataInterface.getGroupChanges().asBroadcastStream();
+
   /// Adds accounts to an account group.
   ///
   /// Adds the accounts specified by [accountIds] to the account group specified

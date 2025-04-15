@@ -31,6 +31,9 @@ abstract class RbacDataInterface {
   Future<List<AccountGroupModel>> getAllAccountGroups();
   Future<void> deleteAccountGroup(String accountId);
 
+  Stream<List<String>> getGroupChangesForAccount(String accountId);
+  Stream<Map<String, List<String>>> getGroupChanges();
+
   // CRUD Permission
   Future<void> setPermission(PermissionModel permission);
   Future<PermissionModel?> getPermissionById(String permissionId);
