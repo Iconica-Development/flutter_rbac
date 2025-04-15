@@ -1,12 +1,12 @@
 name: flutter_rbac_view
 description: A new Flutter package project.
-version: 2.2.2
+version: 2.2.3
 publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
 
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
 
 dependencies:
   flutter:
@@ -22,7 +22,7 @@ dependencies:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
     version: ^0.0.3
 
-  collection: any
+  collection: ^1.17.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
