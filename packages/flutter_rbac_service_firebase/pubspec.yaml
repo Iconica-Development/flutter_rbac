@@ -1,6 +1,7 @@
 name: flutter_rbac_service_firebase
 description: A new Flutter package project.
 version: 2.2.3
+repository: https://github.com/Iconica-Development/flutter_rbac
 publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
 
 environment:
