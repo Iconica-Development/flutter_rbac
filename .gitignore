@@ -12,3 +12,6 @@ macos
 
 .flutter-plugins
 pubspec.lock
+
+# FVM Version Cache
+.fvm/

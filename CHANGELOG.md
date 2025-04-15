@@ -1,3 +1,7 @@
+## 2.2.3
+
+- Increase minimally supported Dart version to 3.4.0 and Flutter to 3.22.0 (which was always the case anyway)
+
 ## 2.2.2
 - Add workflow for publishing to forgejo
 - Replace MaterialState with WidgetState everywhere
