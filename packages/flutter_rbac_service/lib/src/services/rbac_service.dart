@@ -269,6 +269,10 @@ class RbacService {
   ) async =>
       _dataInterface.getAccountGroupByName(accountGroupName);
 
+  /// Retrieves the account groups that the given account IDs are a part of.
+  ///
+  /// Returns a [Future] that completes with the list of retrieved
+  /// [AccountGroupModel]s. The list will be empty if no groups are found.
   Future<List<AccountGroupModel>> getAccountGroupsByAccountIds(
     List<String> accountIds,
   ) async =>

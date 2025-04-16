@@ -55,6 +55,7 @@ From here the following methods can be called from this service to set up and us
 - getAccountGroupById(String accountGroupId): Retrieves an account group by its ID.
 - getAccountGroupByName(String accountGroupName): Retrieves an account group by its name.
 - getAllAccountGroups(): Retrieves all account groups.
+- getAccountGroupsByAccountIds(List<String> accountIds): Retrieves all account groups for the given account IDs.
 - updateAccountGroup(String accountGroupId, {String? newName, Set<String>? accountIds}): Updates an existing account group.
 - deleteAccountGroup(String accountGroupId): Deletes an account group.
 - addAccountsToAccountGroup(String accountgroupId, List<String> accountIds): Adds accounts to an account group.
