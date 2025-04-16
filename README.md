@@ -60,6 +60,8 @@ From here the following methods can be called from this service to set up and us
 - deleteAccountGroup(String accountGroupId): Deletes an account group.
 - addAccountsToAccountGroup(String accountgroupId, List<String> accountIds): Adds accounts to an account group.
 - removeAccountsFromAccountsGroup(String accountGroupId, List<String> accountIds): Removes accounts from an account group.
+- getGroupChangesForAccount(String accountId): Returns a stream that updates every time a group membership for the account ID changes.
+- getGroupChanges(): Returns a stream that updates every time a group membership changes.
 
 ### Permissions
 - createPermission(String name): Creates a new permission with the specified name.
