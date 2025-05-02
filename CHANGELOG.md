@@ -1,3 +1,7 @@
+## 2.4.1
+
+- Remove flutter dependency from pure dart packages
+
 ## 2.4.0
 
 - Add a dart_firebase_admin datasource variant for backend use

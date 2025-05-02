@@ -6,7 +6,6 @@ publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
-  flutter: ">=3.22.0"
 
 dependencies:
   flutter:
@@ -17,8 +16,6 @@ dependencies:
   uuid: ^4.3.3
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   flutter_iconica_analysis:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
     version: ^7.0.0
