@@ -1,3 +1,7 @@
+## 2.4.3
+
+- Use a list in the AccountGroupModel toMap as Firestore doesn't handle sets
+
 ## 2.4.2
 
 - Remove flutter dependency from pure dart package; part 2: Electric boogaloo.

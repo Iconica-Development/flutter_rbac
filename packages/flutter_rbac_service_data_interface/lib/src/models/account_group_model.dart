@@ -24,7 +24,7 @@ class AccountGroupModel {
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         "name": name,
-        "account_ids": accountIds,
+        "account_ids": accountIds.toList(),
       };
 
   AccountGroupModel copyWith({
