@@ -1,6 +1,6 @@
 name: flutter_rbac_service
 description: A new Flutter package project.
-version: 2.4.0
+version: 2.4.2
 repository: https://github.com/Iconica-Development/flutter_rbac
 publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
 
@@ -8,12 +8,12 @@ environment:
   sdk: ">=3.4.0 <4.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
+  uuid: ^4.3.3
+  logger: ^2.5.0
+
   flutter_rbac_service_data_interface:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
-    version: ^2.4.0
-  uuid: ^4.3.3
+    version: ^2.4.2
 
 dev_dependencies:
   flutter_iconica_analysis:

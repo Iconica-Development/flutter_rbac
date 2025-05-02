@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
-import "package:flutter/material.dart";
 import "package:flutter_rbac_service_data_interface/flutter_rbac_service_data_interface.dart";
 import "package:uuid/uuid.dart";
 
@@ -27,9 +26,6 @@ class RbacService {
     var foundObject = await _dataInterface.getSecurableObjectByName(name);
 
     if (foundObject != null) {
-      debugPrint("Securable object already exists: (ID: ${foundObject.id},"
-          " Name: ${foundObject.name})");
-
       return foundObject;
     }
 
@@ -83,7 +79,6 @@ class RbacService {
     var object = await _dataInterface.getSecurableObjectById(objectId);
 
     if (object == null) {
-      debugPrint("Securable object not found: (ID: $objectId");
       return null;
     }
 
@@ -169,7 +164,6 @@ class RbacService {
     var account = await _dataInterface.getAccountById(accountId);
 
     if (account == null) {
-      debugPrint("Account not found: (ID: $accountId");
       return null;
     }
 
@@ -231,9 +225,6 @@ class RbacService {
     var foundGroup = await _dataInterface.getAccountGroupByName(name);
 
     if (foundGroup != null) {
-      debugPrint("Account group already exists: (ID: ${foundGroup.id},"
-          " Name: ${foundGroup.name})");
-
       return foundGroup;
     }
 
@@ -306,16 +297,12 @@ class RbacService {
     Set<String>? accountIds,
   }) async {
     if (newName == null && accountIds == null) {
-      debugPrint(
-          "Make sure to either update with a new name or new account ids: "
-          "(ID: $accountGroupId");
       return null;
     }
 
     var group = await _dataInterface.getAccountGroupById(accountGroupId);
 
     if (group == null) {
-      debugPrint("Account group not found: (ID: $accountGroupId");
       return null;
     }
 
@@ -381,7 +368,6 @@ class RbacService {
     var group = await _dataInterface.getAccountGroupById(accountgroupId);
 
     if (group == null) {
-      debugPrint("Account group not found: (ID: $accountgroupId");
       return null;
     }
 
@@ -407,7 +393,6 @@ class RbacService {
     var group = await _dataInterface.getAccountGroupById(accountGroupId);
 
     if (group == null) {
-      debugPrint("Account group not found: (ID: $accountGroupId");
       return null;
     }
 
@@ -432,9 +417,6 @@ class RbacService {
     var foundPermission = await _dataInterface.getPermissionByName(name);
 
     if (foundPermission != null) {
-      debugPrint("Permission already exists: (ID: ${foundPermission.id},"
-          " Name: ${foundPermission.name})");
-
       return foundPermission;
     }
 
@@ -478,7 +460,6 @@ class RbacService {
     var permission = await _dataInterface.getPermissionById(permissionId);
 
     if (permission == null) {
-      debugPrint("Permission not found: (ID: $permissionId");
       return null;
     }
 
@@ -536,10 +517,6 @@ class RbacService {
         .getPermissionGroupsByPermissionIds(permissionIds.toList());
 
     if (foundGroup.isNotEmpty) {
-      debugPrint("Permission group already exists: (ID: ${foundGroup.first.id},"
-          " Name: ${foundGroup.first.name},"
-          " PermissionIDs: ${foundGroup.first.permissionIds})");
-
       return foundGroup.first;
     }
 
@@ -595,16 +572,12 @@ class RbacService {
     Set<String>? newPermissionIds,
   }) async {
     if (newName == null && newPermissionIds == null) {
-      debugPrint(
-          "Make sure to either update with a new name or new permission ids: "
-          "(ID: $permissionGroupId");
       return null;
     }
 
     var group = await _dataInterface.getPermissionGroupById(permissionGroupId);
 
     if (group == null) {
-      debugPrint("Permission group not found: (ID: $permissionGroupId");
       return null;
     }
 
@@ -657,7 +630,6 @@ class RbacService {
     var group = await _dataInterface.getPermissionGroupById(permissiongroupId);
 
     if (group == null) {
-      debugPrint("Permission group not found: (ID: $permissiongroupId");
       return null;
     }
 
@@ -687,7 +659,6 @@ class RbacService {
     var group = await _dataInterface.getPermissionGroupById(permissionGroupId);
 
     if (group == null) {
-      debugPrint("Permission group not found: (ID: $permissionGroupId");
       return null;
     }
 
@@ -726,16 +697,10 @@ class RbacService {
     String? permissionGroupId,
   }) async {
     if (permissionGroupId != null && permissionId != null) {
-      debugPrint("A role assignment should only contain either a "
-          "role or permission, not both!");
-
       return null;
     }
 
     if (accountId != null && accountGroupId != null) {
-      debugPrint("A role assignment should only contain either a "
-          "account or account group, not both!");
-
       return null;
     }
 
@@ -749,8 +714,6 @@ class RbacService {
         .firstOrNull;
 
     if (foundAssignment != null) {
-      debugPrint("Role assignment already exists: (ID: ${foundAssignment.id}");
-
       return foundAssignment;
     }
 
@@ -851,25 +814,20 @@ class RbacService {
         permissionId: pId,
       );
 
-      if (duplicateAssignments.isEmpty) {
-        var id = _uuid.v4();
+      if (duplicateAssignments.isNotEmpty) continue;
 
-        var assignment = RoleAssignmentModel(
-          id: id,
-          objectId: objectId,
-          accountId: accountId,
-          permissionId: pId,
-        );
+      var id = _uuid.v4();
 
-        await _dataInterface.setRoleAssignment(assignment);
+      var assignment = RoleAssignmentModel(
+        id: id,
+        objectId: objectId,
+        accountId: accountId,
+        permissionId: pId,
+      );
 
-        assignments.add(assignment);
-      } else {
-        debugPrint(
-          "Duplicate assignment: (ObjectID: $objectId, "
-          "AccountID: $accountId, PermissionID: $pId)",
-        );
-      }
+      await _dataInterface.setRoleAssignment(assignment);
+
+      assignments.add(assignment);
     }
 
     return assignments;
@@ -939,25 +897,20 @@ class RbacService {
         permissionId: pId,
       );
 
-      if (duplicateAssignments.isEmpty) {
-        var id = _uuid.v4();
+      if (duplicateAssignments.isNotEmpty) continue;
 
-        var assignment = RoleAssignmentModel(
-          id: id,
-          objectId: objectId,
-          accountGroupId: accountGroupId,
-          permissionId: pId,
-        );
+      var id = _uuid.v4();
 
-        await _dataInterface.setRoleAssignment(assignment);
+      var assignment = RoleAssignmentModel(
+        id: id,
+        objectId: objectId,
+        accountGroupId: accountGroupId,
+        permissionId: pId,
+      );
 
-        assignments.add(assignment);
-      } else {
-        debugPrint(
-          "Duplicate assignment: (ObjectID: $objectId, "
-          "AccountGroupID: $accountGroupId, PermissionID: $pId)",
-        );
-      }
+      await _dataInterface.setRoleAssignment(assignment);
+
+      assignments.add(assignment);
     }
 
     return assignments;
@@ -1038,25 +991,20 @@ class RbacService {
         permissionGroupId: permissionGroupId,
       );
 
-      if (duplicateAssignments.isEmpty) {
-        var id = _uuid.v4();
+      if (duplicateAssignments.isNotEmpty) continue;
 
-        var assignment = RoleAssignmentModel(
-          id: id,
-          objectId: objectId,
-          accountId: accountId,
-          permissionGroupId: permissionGroupId,
-        );
+      var id = _uuid.v4();
 
-        await _dataInterface.setRoleAssignment(assignment);
+      var assignment = RoleAssignmentModel(
+        id: id,
+        objectId: objectId,
+        accountId: accountId,
+        permissionGroupId: permissionGroupId,
+      );
 
-        assignments.add(assignment);
-      } else {
-        debugPrint(
-          "Duplicate assignment: (ObjectID: $objectId, "
-          "AccountID: $accountId, PermissionGroupID: $permissionGroupId)",
-        );
-      }
+      await _dataInterface.setRoleAssignment(assignment);
+
+      assignments.add(assignment);
     }
 
     return assignments;
@@ -1148,25 +1096,19 @@ class RbacService {
         permissionGroupId: permissionGroupId,
       );
 
-      if (duplicateAssignments.isEmpty) {
-        var id = _uuid.v4();
+      if (duplicateAssignments.isNotEmpty) continue;
+      var id = _uuid.v4();
 
-        var assignment = RoleAssignmentModel(
-          id: id,
-          objectId: objectId,
-          accountGroupId: accountGroupId,
-          permissionGroupId: permissionGroupId,
-        );
+      var assignment = RoleAssignmentModel(
+        id: id,
+        objectId: objectId,
+        accountGroupId: accountGroupId,
+        permissionGroupId: permissionGroupId,
+      );
 
-        await _dataInterface.setRoleAssignment(assignment);
+      await _dataInterface.setRoleAssignment(assignment);
 
-        assignments.add(assignment);
-      } else {
-        debugPrint(
-          "Duplicate assignment: (ObjectID: $objectId, AccountGroupID: "
-          "$accountGroupId, PermissionGroupID: $permissionGroupId)",
-        );
-      }
+      assignments.add(assignment);
     }
 
     return assignments;

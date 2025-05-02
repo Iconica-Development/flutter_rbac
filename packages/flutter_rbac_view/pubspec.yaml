@@ -1,6 +1,6 @@
 name: flutter_rbac_view
 description: A new Flutter package project.
-version: 2.4.0
+version: 2.4.2
 repository: https://github.com/Iconica-Development/flutter_rbac
 publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
 
@@ -14,10 +14,10 @@ dependencies:
   go_router: ">=12.1.3 <15.0.0"
   flutter_rbac_service_data_interface:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
-    version: ^2.4.0
+    version: ^2.4.2
   flutter_rbac_service:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
-    version: ^2.4.0
+    version: ^2.4.2
   flutter_menu:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
     version: ^0.0.3

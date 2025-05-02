@@ -1,6 +1,6 @@
 name: flutter_rbac_service_firebase
 description: A new Flutter package project.
-version: 2.4.0
+version: 2.4.2
 repository: https://github.com/Iconica-Development/flutter_rbac
 publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
 
@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   flutter_rbac_service_data_interface:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
-    version: ^2.4.0
+    version: ^2.4.2
 
 dev_dependencies:
   flutter_test:

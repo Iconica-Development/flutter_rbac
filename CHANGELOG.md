@@ -1,3 +1,7 @@
+## 2.4.2
+
+- Remove flutter dependency from pure dart package; part 2: Electric boogaloo.
+
 ## 2.4.1
 
 - Remove flutter dependency from pure dart packages
