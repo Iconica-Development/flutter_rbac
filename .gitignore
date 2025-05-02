@@ -10,6 +10,7 @@ web
 linux
 macos
 
+.DS_Store
 .flutter-plugins
 pubspec.lock
 
