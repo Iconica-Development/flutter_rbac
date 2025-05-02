@@ -1,4 +1,4 @@
-name: flutter_rbac_service
+name: flutter_rbac_service_firebase_admin
 description: A new Flutter package project.
 version: 2.4.0
 repository: https://github.com/Iconica-Development/flutter_rbac
@@ -6,15 +6,14 @@ publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
-  flutter: ">=3.22.0"
 
 dependencies:
+  dart_firebase_admin: ^0.4.0
   flutter:
     sdk: flutter
   flutter_rbac_service_data_interface:
     hosted: https://forgejo.internal.iconica.nl/api/packages/internal/pub/
     version: ^2.4.0
-  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:

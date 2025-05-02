@@ -100,21 +100,21 @@ packages:
       path: "../../flutter_rbac_service"
       relative: true
     source: path
-    version: "2.2.3"
+    version: "2.3.0"
   flutter_rbac_service_data_interface:
     dependency: "direct overridden"
     description:
       path: "../../flutter_rbac_service_data_interface"
       relative: true
     source: path
-    version: "2.2.3"
+    version: "2.3.0"
   flutter_rbac_view:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "2.2.3"
+    version: "2.3.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

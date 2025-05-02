@@ -1,3 +1,7 @@
+## 2.4.0
+
+- Add a dart_firebase_admin datasource variant for backend use
+
 ## 2.3.0
 
 - Add a stream to listen for group changes for a particular user
